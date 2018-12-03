@@ -1,5 +1,5 @@
 { name = "CHANGEME"
-, type = ../resource-types/default.dhall
+, type = ./ResourceType.dhall
 , source = None (List ../types/Map.dhall)
 , version = None (List ../types/Map.dhall)
 , params = None (List ../types/Map.dhall)
