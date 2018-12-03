@@ -1,7 +1,7 @@
-let Resource = ../types/resource.dhall
+let Resource = ../types/Resource.dhall
 let RenderedResource = { name : Text
                        , type : Text
-                       , source : Optional (List ../types/map.dhall)
+                       , source : Optional (List ../types/Map.dhall)
                        }
 let map = https://prelude.dhall-lang.org/List/map
 let mkResourceType =

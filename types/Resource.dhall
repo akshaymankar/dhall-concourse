@@ -1,5 +1,5 @@
 { name : Text
-, type : ./resourceType.dhall
+, type : ./ResourceType.dhall
 , source : Optional (List ./map.dhall)
 , version : Optional (List ./map.dhall)
 , params: Optional (List ./map.dhall)
