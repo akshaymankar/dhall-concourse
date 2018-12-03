@@ -1,4 +1,4 @@
 { name : Text
 , type : Text
-, source : Optional (List ./map.dhall)
+, source : Optional (List ./TextTextPair.dhall)
 }
