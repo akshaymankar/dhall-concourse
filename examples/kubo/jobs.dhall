@@ -1,18 +1,19 @@
-let Job = ./types/Job.dhall
+let Job = ./../../types/Job.dhall
 
-let defaults = ./defaults.dhall
+let defaults = ./../../defaults.dhall
 
-let Step = ./types/Step.dhall
+let Step = ./../../types/Step.dhall
 
-let BasicStep = ./types/BasicStep.dhall
+let BasicStep = ./../../types/BasicStep.dhall
 
-let ResourceType = ./types/ResourceType.dhall
+let ResourceType = ./../../types/ResourceType.dhall
 
-let JSON/keyText = https://prelude.dhall-lang.org/JSON/keyText
+let Prelude =
+	  https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
 
-let Resource = ./types/Resource.dhall
+let Resource = ./../../types/Resource.dhall
 
-let TaskConfig = ./types/TaskConfig.dhall
+let TaskConfig = ./../../types/TaskConfig.dhall
 
 let gitKuboCI
 	: Resource
@@ -23,9 +24,11 @@ let gitKuboCI
 			ResourceType.InBuilt "git"
 		, source =
 			Some
-			[ JSON/keyText "uri" "git@github.com:cloudfoundry-incubator/kubo-ci"
-			, JSON/keyText "branch" "master"
-			, JSON/keyText "privateKey" "((git-ssh-key.private_key))"
+			[ Prelude.JSON.keyText
+			  "uri"
+			  "git@github.com:cloudfoundry-incubator/kubo-ci"
+			, Prelude.JSON.keyText "branch" "master"
+			, Prelude.JSON.keyText "privateKey" "((git-ssh-key.private_key))"
 			]
 		}
 
@@ -38,11 +41,11 @@ let gitKuboRelease
 			ResourceType.InBuilt "git"
 		, source =
 			Some
-			[ JSON/keyText
+			[ Prelude.JSON.keyText
 			  "uri"
 			  "git@github.com:cloudfoundry-incubator/kubo-release"
-			, JSON/keyText "branch" "master"
-			, JSON/keyText "privateKey" "((git-ssh-key.private_key))"
+			, Prelude.JSON.keyText "branch" "master"
+			, Prelude.JSON.keyText "privateKey" "((git-ssh-key.private_key))"
 			]
 		}
 
@@ -71,12 +74,12 @@ let gcsKuboRelease
 	  ⫽ { name =
 			"gcs-kubo-release"
 		, type =
-			./resource-types/GcsResource.dhall
+			./../../resource-types/GcsResource.dhall
 		, source =
 			Some
-			[ JSON/keyText "bucket" "kubo-releases"
-			, JSON/keyText "json_key" "((gcs-json-key))"
-			, JSON/keyText "regexp" "kubo-release-(.*).tgz"
+			[ Prelude.JSON.keyText "bucket" "kubo-releases"
+			, Prelude.JSON.keyText "json_key" "((gcs-json-key))"
+			, Prelude.JSON.keyText "regexp" "kubo-release-(.*).tgz"
 			]
 		}
 
