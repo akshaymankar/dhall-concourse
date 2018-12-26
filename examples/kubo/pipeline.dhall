@@ -1,15 +1,11 @@
-let someFile = ./../../resources/some-file-on-gcs.dhall
+let render = ./../../render/package.dhall
 
-let mkResourceTypes = ./../../functions/mkResourceTypes.dhall
-
-let mkResources = ./../../functions/mkResources.dhall
-
-let renderJobs = ./../../functions/renderJobs.dhall
-
-let resourcesFromJobs = ./../../functions/resourcesFromJobs.dhall
+let resourcesFromJobs = ./../../utils/resourcesFromJobs.dhall
 
 let jobs = ./jobs.dhall
 
 let resources = resourcesFromJobs jobs
 
-in  mkResourceTypes resources ⫽ mkResources resources ⫽ renderJobs jobs
+in    render.resourceTypes resources
+	⫽ render.resources resources
+	⫽ render.jobs jobs

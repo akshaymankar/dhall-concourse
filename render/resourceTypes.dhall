@@ -8,26 +8,26 @@ let RenderedResource =
 
 let renderCustomResourceType = λ(x : Types.CustomResourceType) → [ x ]
 
-let renderInbuiltResourceType = λ(x : Text) → [] : List RenderedResource
+let renderInBuiltResourceType = λ(x : Text) → [] : List RenderedResource
 
-let mkResourceType =
+let renderResourceType =
 		λ(resource : Types.Resource)
 	  → merge
 		{ InBuilt =
-			renderInbuiltResourceType
+			renderInBuiltResourceType
 		, Custom =
 			renderCustomResourceType
 		}
 		resource.type
 
-let mkResourceTypes =
+let renderResourceTypes =
 		λ(resources : List Types.Resource)
 	  → { resource_types =
 			Prelude.`List`.concatMap
 			Types.Resource
 			RenderedResource
-			mkResourceType
+			renderResourceType
 			resources
 		}
 
-in  mkResourceTypes
+in  renderResourceTypes
