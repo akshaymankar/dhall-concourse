@@ -3,11 +3,11 @@ let Prelude =
 
 let Types = ./../../types/package.dhall
 
-let defaults = ./../../defaults.dhall
+let Defaults = ./../../defaults/package.dhall
 
 let gitKuboCI
 	: Types.Resource
-	=   defaults.Resource
+	=   Defaults.Resource
 	  ⫽ { name =
 			"git-kubo-ci"
 		, type =
@@ -24,7 +24,7 @@ let gitKuboCI
 
 let gitKuboRelease
 	: Types.Resource
-	=   defaults.Resource
+	=   Defaults.Resource
 	  ⫽ { name =
 			"git-kubo-release"
 		, type =
@@ -41,16 +41,16 @@ let gitKuboRelease
 
 let getKuboCI
 	: Types.BasicStep
-	= Types.BasicStep.Get (defaults.GetStep ⫽ { resource = gitKuboCI })
+	= Types.BasicStep.Get (Defaults.GetStep ⫽ { resource = gitKuboCI })
 
 let getKuboRelease
 	: Types.BasicStep
-	= Types.BasicStep.Get (defaults.GetStep ⫽ { resource = gitKuboRelease })
+	= Types.BasicStep.Get (Defaults.GetStep ⫽ { resource = gitKuboRelease })
 
 let buildKuboRelease
 	: Types.BasicStep
 	= Types.BasicStep.Task
-	  (   defaults.TaskStep
+	  (   Defaults.TaskStep
 		⫽ { task =
 			  "build-kubo-release"
 		  , config =
@@ -60,7 +60,7 @@ let buildKuboRelease
 
 let gcsKuboRelease
 	: Types.Resource
-	=   defaults.Resource
+	=   Defaults.Resource
 	  ⫽ { name =
 			"gcs-kubo-release"
 		, type =
@@ -75,9 +75,9 @@ let gcsKuboRelease
 
 let uploadReleaseTarball
 	: Types.BasicStep
-	= Types.BasicStep.Put (defaults.PutStep ⫽ { resource = gcsKuboRelease })
+	= Types.BasicStep.Put (Defaults.PutStep ⫽ { resource = gcsKuboRelease })
 
-in  [   defaults.Job
+in  [   Defaults.Job
 	  ⫽ { name =
 			"first job"
 		, plan =

@@ -1,8 +1,8 @@
-let defaults = ./../defaults.dhall
+let Defaults = ./../defaults/package.dhall
 
 let Types = ./../types/package.dhall
 
-in      defaults.Resource
+in      Defaults.Resource
 	  ⫽ { name =
 			"gcs-some-file"
 		, type =
