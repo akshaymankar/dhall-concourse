@@ -1,6 +1,6 @@
-let ResourceType = ./../types/ResourceType.dhall
+let Types = ./../types/package.dhall
 
-in    ResourceType.Custom
+in    Types.ResourceType.Custom
 	  { name =
 		  "gcs"
 	  , type =
@@ -8,4 +8,4 @@ in    ResourceType.Custom
 	  , source =
 		  Some [ { mapKey = "repository", mapValue = "frodenas/gcs-resource" } ]
 	  }
-	: ./../types/ResourceType.dhall
+	: Types.ResourceType

@@ -1,27 +1,17 @@
-let Job = ./../../types/Job.dhall
-
-let defaults = ./../../defaults.dhall
-
-let Step = ./../../types/Step.dhall
-
-let BasicStep = ./../../types/BasicStep.dhall
-
-let ResourceType = ./../../types/ResourceType.dhall
-
 let Prelude =
 	  https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
 
-let Resource = ./../../types/Resource.dhall
+let Types = ./../../types/package.dhall
 
-let TaskConfig = ./../../types/TaskConfig.dhall
+let defaults = ./../../defaults.dhall
 
 let gitKuboCI
-	: Resource
+	: Types.Resource
 	=   defaults.Resource
 	  ⫽ { name =
 			"git-kubo-ci"
 		, type =
-			ResourceType.InBuilt "git"
+			Types.ResourceType.InBuilt "git"
 		, source =
 			Some
 			[ Prelude.JSON.keyText
@@ -33,12 +23,12 @@ let gitKuboCI
 		}
 
 let gitKuboRelease
-	: Resource
+	: Types.Resource
 	=   defaults.Resource
 	  ⫽ { name =
 			"git-kubo-release"
 		, type =
-			ResourceType.InBuilt "git"
+			Types.ResourceType.InBuilt "git"
 		, source =
 			Some
 			[ Prelude.JSON.keyText
@@ -50,26 +40,26 @@ let gitKuboRelease
 		}
 
 let getKuboCI
-	: BasicStep
-	= BasicStep.Get (defaults.GetStep ⫽ { resource = gitKuboCI })
+	: Types.BasicStep
+	= Types.BasicStep.Get (defaults.GetStep ⫽ { resource = gitKuboCI })
 
 let getKuboRelease
-	: BasicStep
-	= BasicStep.Get (defaults.GetStep ⫽ { resource = gitKuboRelease })
+	: Types.BasicStep
+	= Types.BasicStep.Get (defaults.GetStep ⫽ { resource = gitKuboRelease })
 
 let buildKuboRelease
-	: BasicStep
-	= BasicStep.Task
+	: Types.BasicStep
+	= Types.BasicStep.Task
 	  (   defaults.TaskStep
 		⫽ { task =
 			  "build-kubo-release"
 		  , config =
-			  TaskConfig.File "git-kubo-ci/tasks/build-kubo-release.yml"
+			  Types.TaskConfig.File "git-kubo-ci/tasks/build-kubo-release.yml"
 		  }
 	  )
 
 let gcsKuboRelease
-	: Resource
+	: Types.Resource
 	=   defaults.Resource
 	  ⫽ { name =
 			"gcs-kubo-release"
@@ -84,16 +74,16 @@ let gcsKuboRelease
 		}
 
 let uploadReleaseTarball
-	: BasicStep
-	= BasicStep.Put (defaults.PutStep ⫽ { resource = gcsKuboRelease })
+	: Types.BasicStep
+	= Types.BasicStep.Put (defaults.PutStep ⫽ { resource = gcsKuboRelease })
 
 in  [   defaults.Job
 	  ⫽ { name =
 			"first job"
 		, plan =
-			[ Step.Aggregate [ getKuboCI, getKuboRelease ]
-			, Step.Basic buildKuboRelease
-			, Step.Basic uploadReleaseTarball
+			[ Types.Step.Aggregate [ getKuboCI, getKuboRelease ]
+			, Types.Step.Basic buildKuboRelease
+			, Types.Step.Basic uploadReleaseTarball
 			]
 		}
-	] : List Job
+	] : List Types.Job

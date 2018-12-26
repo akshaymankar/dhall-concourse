@@ -1,3 +1,3 @@
-let TaskConfig = ./../types/TaskConfig.dhall
+let Types = ./../types/package.dhall
 
-in  TaskConfig.Config ([] : List ./../types/TextTextPair.dhall)
+in  Types.TaskConfig.Config ([] : List Types.TextTextPair)

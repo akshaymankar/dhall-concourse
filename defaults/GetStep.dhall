@@ -1,18 +1,16 @@
-let GetStep = ./../types/GetStep.dhall
-
-let Resource = ./../types/Resource.dhall
+let Types = ./../types/package.dhall
 
 in    { get =
 		  None Text
 	  , resource =
 		  ./Resource.dhall
 	  , params =
-		  None (List ./../types/TextTextPair.dhall)
+		  None (List Types.TextTextPair)
 	  , version =
-		  None ./../types/GetVersion.dhall
+		  None Types.GetVersion
 	  , passed =
 		  None (List Text)
 	  , trigger =
 		  None Bool
 	  }
-	: GetStep
+	: Types.GetStep

@@ -1,4 +1,4 @@
-let Resource = ./../types/Resource.dhall
+let Types = ./../types/package.dhall
 
 let RenderedResource =
 	  { name :
@@ -6,11 +6,11 @@ let RenderedResource =
 	  , type :
 		  Text
 	  , source :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , version :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , params :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , check_every :
 		  Optional Text
 	  , tags :
@@ -21,26 +21,22 @@ let RenderedResource =
 
 let map = https://prelude.dhall-lang.org/List/map
 
-let ResourceType = ./../types/ResourceType.dhall
-
-let CustomResourceType = ./../types/CustomResourceType.dhall
-
 let renderInbuiltResource = λ(x : Text) → x
 
-let renderCustomResource = λ(x : CustomResourceType) → x.name
+let renderCustomResource = λ(x : Types.CustomResourceType) → x.name
 
 let resourceTypeText =
-		λ(resourceType : ResourceType)
+		λ(resourceType : Types.ResourceType)
 	  → merge
 		{ InBuilt = renderInbuiltResource, Custom = renderCustomResource }
 		resourceType
 
 let mkResource =
-		λ(resource : Resource)
+		λ(resource : Types.Resource)
 	  → resource ⫽ { type = resourceTypeText resource.type }
 
 let mkResources =
-		λ(resources : List Resource)
-	  → { resources = map Resource RenderedResource mkResource resources }
+		λ(resources : List Types.Resource)
+	  → { resources = map Types.Resource RenderedResource mkResource resources }
 
 in  mkResources

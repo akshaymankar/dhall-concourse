@@ -1,29 +1,18 @@
-let Job = ./../types/Job.dhall
+let Prelude =
+	  https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
 
-let Step = ./../types/Step.dhall
+let Types = ./../types/package.dhall
 
-let GetStep = ./../types/GetStep.dhall
+let resourceFromGetStep = λ(g : Types.GetStep) → Some g.resource
 
-let PutStep = ./../types/PutStep.dhall
+let resourceFromPutStep = λ(p : Types.PutStep) → Some p.resource
 
-let TaskStep = ./../types/TaskStep.dhall
-
-let BasicStep = ./../types/BasicStep.dhall
-
-let Resource = ./../types/Resource.dhall
-
-let resourceFromGetStep = λ(g : GetStep) → Some g.resource
-
-let resourceFromPutStep = λ(p : PutStep) → Some p.resource
-
-let resourceFromTaskStep = λ(_ : TaskStep) → None Resource
-
-let Optional/toList = https://prelude.dhall-lang.org/Optional/toList
+let resourceFromTaskStep = λ(_ : Types.TaskStep) → None Types.Resource
 
 let resourcesFromBasicStep =
-		λ(b : BasicStep)
-	  → Optional/toList
-		Resource
+		λ(b : Types.BasicStep)
+	  → Prelude.`Optional`.toList
+		Types.Resource
 		( merge
 		  { Get =
 			  resourceFromGetStep
@@ -35,13 +24,14 @@ let resourcesFromBasicStep =
 		  b
 		)
 
-let List/concatMap = https://prelude.dhall-lang.org/List/concatMap
-
 let resourcesFromAggregateStep =
-	  List/concatMap BasicStep Resource resourcesFromBasicStep
+	  Prelude.`List`.concatMap
+	  Types.BasicStep
+	  Types.Resource
+	  resourcesFromBasicStep
 
 let resourcesFromStep =
-		λ(s : Step)
+		λ(s : Types.Step)
 	  → merge
 		{ Basic =
 			resourcesFromBasicStep
@@ -51,8 +41,14 @@ let resourcesFromStep =
 		s
 
 let resourcesFromJob =
-	  λ(j : Job) → List/concatMap Step Resource resourcesFromStep j.plan
+		λ(j : Types.Job)
+	  → Prelude.`List`.concatMap
+		Types.Step
+		Types.Resource
+		resourcesFromStep
+		j.plan
 
-let resourcesFromJobs = List/concatMap Job Resource resourcesFromJob
+let resourcesFromJobs =
+	  Prelude.`List`.concatMap Types.Job Types.Resource resourcesFromJob
 
 in  resourcesFromJobs

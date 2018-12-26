@@ -1,13 +1,15 @@
+let Types = ./../types/package.dhall
+
 let PutStep
-	: ./../types/PutStep.dhall
+	: Types.PutStep
 	= { put =
 		  None Text
 	  , resource =
 		  ./Resource.dhall
 	  , params =
-		  None (List ./../types/TextTextPair.dhall)
+		  None (List Types.TextTextPair)
 	  , get_params =
-		  None (List ./../types/TextTextPair.dhall)
+		  None (List Types.TextTextPair)
 	  }
 
 in  PutStep

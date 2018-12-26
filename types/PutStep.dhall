@@ -1,4 +1,4 @@
-let Resource = ./../types/Resource.dhall
+let Resource = ./Resource.dhall
 
 in  { put :
 		Optional Text

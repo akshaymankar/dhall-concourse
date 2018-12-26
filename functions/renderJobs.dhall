@@ -1,16 +1,7 @@
-let Job = ./../types/Job.dhall
+let Prelude =
+	  https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
 
-let Step = ./../types/Step.dhall
-
-let BasicStep = ./../types/BasicStep.dhall
-
-let GetStep = ./../types/GetStep.dhall
-
-let PutStep = ./../types/PutStep.dhall
-
-let TaskStep = ./../types/TaskStep.dhall
-
-let Resource = ./../types/Resource.dhall
+let Types = ./../types/package.dhall
 
 let RenderedGet =
 	  { get :
@@ -18,9 +9,9 @@ let RenderedGet =
 	  , resource :
 		  Optional Text
 	  , params :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , version :
-		  Optional ./../types/GetVersion.dhall
+		  Optional Types.GetVersion
 	  , passed :
 		  Optional (List Text)
 	  , trigger :
@@ -33,45 +24,45 @@ let RenderedPut =
 	  , resource :
 		  Optional Text
 	  , params :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , get_params :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  }
 
-let TaskConfig = ./../types/TaskConfig.dhall
+let TaskConfig = Types.TaskConfig
 
 let RenderedTask =
 	  { task :
 		  Text
 	  , config :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , file :
 		  Optional Text
 	  , privileged :
 		  Optional Bool
 	  , params :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , image :
 		  Optional Text
 	  , input_mapping :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  , output_mapping :
-		  Optional (List ./../types/TextTextPair.dhall)
+		  Optional (List Types.TextTextPair)
 	  }
 
 let RenderedBasic =
 	  < Get : RenderedGet | Put : RenderedPut | Task : RenderedTask >
 
 let stepName
-	: Optional Text → Resource → Text
+	: Optional Text → Types.Resource → Text
 	=   λ(providedName : Optional Text)
-	  → λ(resource : Resource)
+	  → λ(resource : Types.Resource)
 	  → Optional/fold Text providedName Text (λ(t : Text) → t) resource.name
 
 let resourceName
-	: Optional Text → Resource → Optional Text
+	: Optional Text → Types.Resource → Optional Text
 	=   λ(providedName : Optional Text)
-	  → λ(resource : Resource)
+	  → λ(resource : Types.Resource)
 	  → Optional/fold
 		Text
 		providedName
@@ -80,8 +71,8 @@ let resourceName
 		(None Text)
 
 let renderGet
-	: GetStep → RenderedBasic
-	=   λ(g : GetStep)
+	: Types.GetStep → RenderedBasic
+	=   λ(g : Types.GetStep)
 	  → RenderedBasic.Get
 		(   g
 		  ⫽ { get =
@@ -92,8 +83,8 @@ let renderGet
 		)
 
 let renderPut
-	: PutStep → RenderedBasic
-	=   λ(p : PutStep)
+	: Types.PutStep → RenderedBasic
+	=   λ(p : Types.PutStep)
 	  → RenderedBasic.Put
 		(   p
 		  ⫽ { put =
@@ -104,16 +95,14 @@ let renderPut
 		)
 
 let renderTaskConfig =
-		λ(c : List ./../types/TextTextPair.dhall)
-	  → { config = Some c, file = None Text }
+	  λ(c : List Types.TextTextPair) → { config = Some c, file = None Text }
 
 let renderTaskFile =
-		λ(f : Text)
-	  → { config = None (List ./../types/TextTextPair.dhall), file = Some f }
+	  λ(f : Text) → { config = None (List Types.TextTextPair), file = Some f }
 
 let renderTask
-	: TaskStep → RenderedBasic
-	=   λ(t : TaskStep)
+	: Types.TaskStep → RenderedBasic
+	=   λ(t : Types.TaskStep)
 	  → RenderedBasic.Task
 		(   t
 		  ⫽ ( merge
@@ -127,26 +116,29 @@ let RenderedAggregate = { aggregate : List RenderedBasic }
 let RenderedStep = < Basic : RenderedBasic | Aggregate : RenderedAggregate >
 
 let renderBasicAsRenderedBasic
-	: BasicStep → RenderedBasic
-	=   λ(b : BasicStep)
+	: Types.BasicStep → RenderedBasic
+	=   λ(b : Types.BasicStep)
 	  → merge { Get = renderGet, Put = renderPut, Task = renderTask } b
 
-let List/map = https://prelude.dhall-lang.org/List/map
-
 let renderAggregate
-	: List BasicStep → RenderedStep
-	=   λ(bs : List BasicStep)
+	: List Types.BasicStep → RenderedStep
+	=   λ(bs : List Types.BasicStep)
 	  → RenderedStep.Aggregate
 		{ aggregate =
-			List/map BasicStep RenderedBasic renderBasicAsRenderedBasic bs
+			Prelude.`List`.map
+			Types.BasicStep
+			RenderedBasic
+			renderBasicAsRenderedBasic
+			bs
 		}
 
 let renderBasic
-	: BasicStep → RenderedStep
-	= λ(b : BasicStep) → RenderedStep.Basic (renderBasicAsRenderedBasic b)
+	: Types.BasicStep → RenderedStep
+	= λ(b : Types.BasicStep) → RenderedStep.Basic (renderBasicAsRenderedBasic b)
 
 let renderStep =
-	  λ(s : Step) → merge { Basic = renderBasic, Aggregate = renderAggregate } s
+		λ(s : Types.Step)
+	  → merge { Basic = renderBasic, Aggregate = renderAggregate } s
 
 let RenderedJob =
 	  { name :
@@ -168,20 +160,25 @@ let RenderedJob =
 	  , interruptible :
 		  Optional Bool
 	  , on_success :
-		  Optional Step
+		  Optional Types.Step
 	  , on_failure :
-		  Optional Step
+		  Optional Types.Step
 	  , on_abort :
-		  Optional Step
+		  Optional Types.Step
 	  , ensure :
-		  Optional Step
+		  Optional Types.Step
 	  }
 
 let renderJob
-	: Job → RenderedJob
-	= λ(j : Job) → j ⫽ { plan = List/map Step RenderedStep renderStep j.plan }
+	: Types.Job → RenderedJob
+	=   λ(j : Types.Job)
+	  →   j
+		⫽ { plan =
+			  Prelude.`List`.map Types.Step RenderedStep renderStep j.plan
+		  }
 
 let renderJobs =
-	  λ(js : List Job) → { jobs = List/map Job RenderedJob renderJob js }
+		λ(js : List Types.Job)
+	  → { jobs = Prelude.`List`.map Types.Job RenderedJob renderJob js }
 
 in  renderJobs

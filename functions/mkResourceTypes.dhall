@@ -1,24 +1,17 @@
-let Resource = ./../types/Resource.dhall
+let Prelude =
+	  https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
 
-let CustomResourceType = ./../types/CustomResourceType.dhall
+let Types = ./../types/package.dhall
 
 let RenderedResource =
-	  { name :
-		  Text
-	  , type :
-		  Text
-	  , source :
-		  Optional (List ./../types/TextTextPair.dhall)
-	  }
+	  { name : Text, type : Text, source : Optional (List Types.TextTextPair) }
 
-let map = https://prelude.dhall-lang.org/List/map
-
-let renderCustomResourceType = λ(x : CustomResourceType) → [ x ]
+let renderCustomResourceType = λ(x : Types.CustomResourceType) → [ x ]
 
 let renderInbuiltResourceType = λ(x : Text) → [] : List RenderedResource
 
 let mkResourceType =
-		λ(resource : Resource)
+		λ(resource : Types.Resource)
 	  → merge
 		{ InBuilt =
 			renderInbuiltResourceType
@@ -27,12 +20,14 @@ let mkResourceType =
 		}
 		resource.type
 
-let List/concatMap = https://prelude.dhall-lang.org/List/concatMap
-
 let mkResourceTypes =
-		λ(resources : List Resource)
+		λ(resources : List Types.Resource)
 	  → { resource_types =
-			List/concatMap Resource RenderedResource mkResourceType resources
+			Prelude.`List`.concatMap
+			Types.Resource
+			RenderedResource
+			mkResourceType
+			resources
 		}
 
 in  mkResourceTypes

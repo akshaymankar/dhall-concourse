@@ -1,4 +1,4 @@
-let TaskStep = ./../types/TaskStep.dhall
+let Types = ./../types/package.dhall
 
 in    { task =
 		  "CHANGEME"
@@ -7,12 +7,12 @@ in    { task =
 	  , privileged =
 		  None Bool
 	  , params =
-		  None (List ./../types/TextTextPair.dhall)
+		  None (List Types.TextTextPair)
 	  , image =
 		  None Text
 	  , input_mapping =
-		  None (List ./../types/TextTextPair.dhall)
+		  None (List Types.TextTextPair)
 	  , output_mapping =
-		  None (List ./../types/TextTextPair.dhall)
+		  None (List Types.TextTextPair)
 	  }
-	: TaskStep
+	: Types.TaskStep
