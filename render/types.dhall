@@ -30,7 +30,7 @@ let RenderedTask =
 	  { task :
 		  Text
 	  , config :
-		  Optional (List Types.TextTextPair)
+		  Optional Types.TaskConfig
 	  , file :
 		  Optional Text
 	  , privileged :

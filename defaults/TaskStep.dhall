@@ -3,7 +3,7 @@ let Types = ./../types/package.dhall
 in    { task =
 		  "CHANGEME"
 	  , config =
-		  ./TaskConfig.dhall
+		  Types.TaskSpec.Config ./TaskConfig.dhall
 	  , privileged =
 		  None Bool
 	  , params =

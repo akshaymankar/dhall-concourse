@@ -47,10 +47,10 @@ let renderPut
 		)
 
 let renderTaskConfig =
-	  λ(c : List Types.TextTextPair) → { config = Some c, file = None Text }
+	  λ(c : Types.TaskConfig) → { config = Some c, file = None Text }
 
 let renderTaskFile =
-	  λ(f : Text) → { config = None (List Types.TextTextPair), file = Some f }
+	  λ(f : Text) → { config = None Types.TaskConfig, file = Some f }
 
 let renderTask
 	: Types.TaskStep → RenderTypes.BasicStep

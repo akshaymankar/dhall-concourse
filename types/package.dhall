@@ -6,6 +6,8 @@
 	./GetStep.dhall
 , GetVersion =
 	./GetVersion.dhall
+, ImageResource =
+	./ImageResource.dhall
 , Job =
 	./Job.dhall
 , PutStep =
@@ -18,8 +20,18 @@
 	./Step.dhall
 , TaskConfig =
 	./TaskConfig.dhall
+, TaskInput =
+	./TaskInput.dhall
+, TaskOutput =
+	./TaskOutput.dhall
+, TaskCache =
+	./TaskCache.dhall
+, TaskRunConfig =
+	./TaskRunConfig.dhall
 , TaskStep =
 	./TaskStep.dhall
+, TaskSpec =
+	./TaskSpec.dhall
 , TextTextPair =
 	./TextTextPair.dhall
 }

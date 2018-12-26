@@ -54,7 +54,7 @@ let buildKuboRelease
 		⫽ { task =
 			  "build-kubo-release"
 		  , config =
-			  Types.TaskConfig.File "git-kubo-ci/tasks/build-kubo-release.yml"
+			  Types.TaskSpec.File "git-kubo-ci/tasks/build-kubo-release.yml"
 		  }
 	  )
 
