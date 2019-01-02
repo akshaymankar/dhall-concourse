@@ -6,6 +6,8 @@
 	./Job.dhall
 , GetStep =
 	./GetStep.dhall
+, ImageResource =
+	./ImageResource.dhall
 , TaskStep =
 	./TaskStep.dhall
 , TaskConfig =
