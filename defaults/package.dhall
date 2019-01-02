@@ -12,6 +12,8 @@
 	./TaskStep.dhall
 , TaskConfig =
 	./TaskConfig.dhall
+, TaskRunConfig =
+	./TaskRunConfig.dhall
 , PutStep =
 	./PutStep.dhall
 }
