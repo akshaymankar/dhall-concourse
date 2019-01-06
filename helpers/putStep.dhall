@@ -1,8 +1,8 @@
 let Types = ./../types/package.dhall
 
-let taskStep
-	: Types.TaskStep → Types.Step
-	=   λ(taskStep : Types.TaskStep)
+let putStep
+	: Types.PutStep → Types.Step
+	=   λ(putStep : Types.PutStep)
 	  → λ(Step : Type)
 	  → λ(GetStep : Types.GetStep → Step)
 	  → λ(PutStep : Types.PutStep → Step)
@@ -11,6 +11,6 @@ let taskStep
 	  → λ(DoStep : List Step → Step)
 	  → λ(TryStep : Step → Step)
 	  → λ(WithHooks : Step → Types.StepHooks Step → Step)
-	  → TaskStep taskStep
+	  → PutStep putStep
 
-in  taskStep
+in  putStep

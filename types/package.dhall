@@ -18,6 +18,8 @@
 	./ResourceType.dhall
 , Step =
 	./Step.dhall
+, StepHooks =
+	./StepHooks.dhall
 , TaskConfig =
 	./TaskConfig.dhall
 , TaskInput =
