@@ -1,1 +1,1 @@
-{ basicTask = ./basicTask.dhall }
+{ basicTask = ./taskStep.dhall, putStep = ./putStep.dhall }
