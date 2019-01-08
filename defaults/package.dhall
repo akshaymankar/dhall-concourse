@@ -8,6 +8,8 @@
 	./GetStep.dhall
 , ImageResource =
 	./ImageResource.dhall
+, StepHooks =
+	./StepHooks.dhall
 , TaskStep =
 	./TaskStep.dhall
 , TaskConfig =
