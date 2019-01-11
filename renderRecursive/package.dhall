@@ -2,6 +2,8 @@
 → λ(toJSON : ∀(T : Type) → ∀(t : T) → JSON)
 → { job =
 	  ./job.dhall JSON toJSON
+  , jobs =
+	  ./jobs.dhall JSON toJSON
   , step =
 	  ./step.dhall JSON toJSON
   , steps =
