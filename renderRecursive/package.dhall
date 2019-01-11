@@ -6,4 +6,8 @@
 	  ./step.dhall JSON toJSON
   , steps =
 	  ./steps.dhall JSON toJSON
+  , resources =
+	  ../render/resources.dhall
+  , resourceTypes =
+	  ../render/resourceTypes.dhall
   }
