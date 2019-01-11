@@ -14,11 +14,44 @@
 		→ λ(h : Types.StepHooks JSON)
 		→ toJSON (Types.PutStep ⩓ Types.StepHooks JSON) (p ⫽ h)
 
+  let RenderedTask =
+		{ task :
+			Text
+		, config :
+			Optional Types.TaskConfig
+		, file :
+			Optional Text
+		, privileged :
+			Optional Bool
+		, params :
+			Optional (List Types.TextTextPair)
+		, image :
+			Optional Text
+		, input_mapping :
+			Optional (List Types.TextTextPair)
+		, output_mapping :
+			Optional (List Types.TextTextPair)
+		}
+
+  let renderTaskConfig =
+		λ(c : Types.TaskConfig) → { config = Some c, file = None Text }
+
+  let renderTaskFile =
+		λ(f : Text) → { config = None Types.TaskConfig, file = Some f }
+
   let renderTask
 	  : Types.TaskStep → Types.StepHooks JSON → JSON
 	  =   λ(t : Types.TaskStep)
 		→ λ(h : Types.StepHooks JSON)
-		→ toJSON (Types.TaskStep ⩓ Types.StepHooks JSON) (t ⫽ h)
+		→ toJSON
+		  (RenderedTask ⩓ Types.StepHooks JSON)
+		  (   t
+			⫽ ( merge
+				{ Config = renderTaskConfig, File = renderTaskFile }
+				t.config
+			  )
+			⫽ h
+		  )
 
   let renderAggregate
 	  : List JSON → Types.StepHooks JSON → JSON
