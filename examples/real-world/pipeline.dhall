@@ -6,8 +6,8 @@
   let Prelude =
 		https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
 
-  let renderJob = ../../renderRecursive/job.dhall JSON toJSON
+  let renderJobs = ../../render/jobs.dhall JSON toJSON
 
   let bumpMinorJob : Concourse.Job = ./jobs/bump-minor.dhall
 
-  in  Prelude.`List`.map Concourse.Job JSON renderJob [ bumpMinorJob ]
+  in  renderJobs [ bumpMinorJob ]
