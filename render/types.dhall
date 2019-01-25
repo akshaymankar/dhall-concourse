@@ -1,62 +1,9 @@
-let Types = ./../types/package.dhall
-
-let RenderedGet =
-	  { get :
-		  Text
-	  , resource :
-		  Optional Text
-	  , params :
-		  Optional (List Types.TextTextPair)
-	  , version :
-		  Optional Types.GetVersion
-	  , passed :
-		  Optional (List Text)
-	  , trigger :
-		  Optional Bool
-	  }
-
-let RenderedPut =
-	  { put :
-		  Text
-	  , resource :
-		  Optional Text
-	  , params :
-		  Optional (List Types.TextTextPair)
-	  , get_params :
-		  Optional (List Types.TextTextPair)
-	  }
-
-let RenderedTask =
-	  { task :
-		  Text
-	  , config :
-		  Optional Types.TaskConfig
-	  , file :
-		  Optional Text
-	  , privileged :
-		  Optional Bool
-	  , params :
-		  Optional (List Types.TextTextPair)
-	  , image :
-		  Optional Text
-	  , input_mapping :
-		  Optional (List Types.TextTextPair)
-	  , output_mapping :
-		  Optional (List Types.TextTextPair)
-	  }
-
-let RenderedBasic =
-	  < Get : RenderedGet | Put : RenderedPut | Task : RenderedTask >
-
-let RenderedAggregate = { aggregate : List RenderedBasic }
-
-let RenderedStep = < Basic : RenderedBasic | Aggregate : RenderedAggregate >
-
-let RenderedJob =
+  λ(JSON : Type)
+→ { Job =
 	  { name :
 		  Text
 	  , plan :
-		  List RenderedStep
+		  List JSON
 	  , serial :
 		  Optional Bool
 	  , build_logs_to_retain :
@@ -72,27 +19,12 @@ let RenderedJob =
 	  , interruptible :
 		  Optional Bool
 	  , on_success :
-		  Optional RenderedStep
+		  Optional JSON
 	  , on_failure :
-		  Optional RenderedStep
+		  Optional JSON
 	  , on_abort :
-		  Optional RenderedStep
+		  Optional JSON
 	  , ensure :
-		  Optional RenderedStep
+		  Optional JSON
 	  }
-
-in  { GetStep =
-		RenderedGet
-	, PutStep =
-		RenderedPut
-	, TaskStep =
-		RenderedTask
-	, BasicStep =
-		RenderedBasic
-	, AggregateStep =
-		RenderedAggregate
-	, Step =
-		RenderedStep
-	, Job =
-		RenderedJob
-	}
+  }

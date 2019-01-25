@@ -1,92 +1,90 @@
-let Prelude =
-	  https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
+  λ(JSON : Type)
+→ λ(toJSON : ∀(Value : Type) → ∀(v : Value) → JSON)
+→ let Types = ../types/package.dhall
 
-let Types = ./../types/package.dhall
+  let renderGet
+	  : Types.GetStep → Types.StepHooks JSON → JSON
+	  =   λ(g : Types.GetStep)
+		→ λ(h : Types.StepHooks JSON)
+		→ toJSON (Types.GetStep ⩓ Types.StepHooks JSON) (g ⫽ h)
 
-let RenderTypes = ./types.dhall
+  let renderPut
+	  : Types.PutStep → Types.StepHooks JSON → JSON
+	  =   λ(p : Types.PutStep)
+		→ λ(h : Types.StepHooks JSON)
+		→ toJSON (Types.PutStep ⩓ Types.StepHooks JSON) (p ⫽ h)
 
-let stepName
-	: Optional Text → Types.Resource → Text
-	=   λ(providedName : Optional Text)
-	  → λ(resource : Types.Resource)
-	  → Optional/fold Text providedName Text (λ(t : Text) → t) resource.name
-
-let resourceName
-	: Optional Text → Types.Resource → Optional Text
-	=   λ(providedName : Optional Text)
-	  → λ(resource : Types.Resource)
-	  → Optional/fold
-		Text
-		providedName
-		(Optional Text)
-		(λ(t : Text) → Some resource.name)
-		(None Text)
-
-let renderGet
-	: Types.GetStep → RenderTypes.BasicStep
-	=   λ(g : Types.GetStep)
-	  → RenderTypes.BasicStep.Get
-		(   g
-		  ⫽ { get =
-				stepName g.get g.resource
-			, resource =
-				resourceName g.get g.resource
-			}
-		)
-
-let renderPut
-	: Types.PutStep → RenderTypes.BasicStep
-	=   λ(p : Types.PutStep)
-	  → RenderTypes.BasicStep.Put
-		(   p
-		  ⫽ { put =
-				stepName p.put p.resource
-			, resource =
-				resourceName p.put p.resource
-			}
-		)
-
-let renderTaskConfig =
-	  λ(c : Types.TaskConfig) → { config = Some c, file = None Text }
-
-let renderTaskFile =
-	  λ(f : Text) → { config = None Types.TaskConfig, file = Some f }
-
-let renderTask
-	: Types.TaskStep → RenderTypes.BasicStep
-	=   λ(t : Types.TaskStep)
-	  → RenderTypes.BasicStep.Task
-		(   t
-		  ⫽ ( merge
-			  { Config = renderTaskConfig, File = renderTaskFile }
-			  t.config
-			)
-		)
-
-let renderBasicAsRenderedBasic
-	: Types.BasicStep → RenderTypes.BasicStep
-	=   λ(b : Types.BasicStep)
-	  → merge { Get = renderGet, Put = renderPut, Task = renderTask } b
-
-let renderAggregate
-	: List Types.BasicStep → RenderTypes.Step
-	=   λ(bs : List Types.BasicStep)
-	  → RenderTypes.Step.Aggregate
-		{ aggregate =
-			Prelude.`List`.map
-			Types.BasicStep
-			RenderTypes.BasicStep
-			renderBasicAsRenderedBasic
-			bs
+  let RenderedTask =
+		{ task :
+			Text
+		, config :
+			Optional Types.TaskConfig
+		, file :
+			Optional Text
+		, privileged :
+			Optional Bool
+		, params :
+			Optional (List Types.TextTextPair)
+		, image :
+			Optional Text
+		, input_mapping :
+			Optional (List Types.TextTextPair)
+		, output_mapping :
+			Optional (List Types.TextTextPair)
 		}
 
-let renderBasic
-	: Types.BasicStep → RenderTypes.Step
-	=   λ(b : Types.BasicStep)
-	  → RenderTypes.Step.Basic (renderBasicAsRenderedBasic b)
+  let renderTaskConfig =
+		λ(c : Types.TaskConfig) → { config = Some c, file = None Text }
 
-let renderStep =
-		λ(s : Types.Step)
-	  → merge { Basic = renderBasic, Aggregate = renderAggregate } s
+  let renderTaskFile =
+		λ(f : Text) → { config = None Types.TaskConfig, file = Some f }
 
-in  renderStep
+  let renderTask
+	  : Types.TaskStep → Types.StepHooks JSON → JSON
+	  =   λ(t : Types.TaskStep)
+		→ λ(h : Types.StepHooks JSON)
+		→ toJSON
+		  (RenderedTask ⩓ Types.StepHooks JSON)
+		  (   t
+			⫽ ( merge
+				{ Config = renderTaskConfig, File = renderTaskFile }
+				t.config
+			  )
+			⫽ h
+		  )
+
+  let renderAggregate
+	  : List JSON → Types.StepHooks JSON → JSON
+	  =   λ(steps : List JSON)
+		→ λ(h : Types.StepHooks JSON)
+		→ toJSON
+		  ({ aggregate : List JSON } ⩓ Types.StepHooks JSON)
+		  ({ aggregate = steps } ⫽ h)
+
+  let renderDo
+	  : List JSON → Types.StepHooks JSON → JSON
+	  =   λ(steps : List JSON)
+		→ λ(h : Types.StepHooks JSON)
+		→ toJSON
+		  ({ do : List JSON } ⩓ Types.StepHooks JSON)
+		  ({ do = steps } ⫽ h)
+
+  let renderTry
+	  : JSON → Types.StepHooks JSON → JSON
+	  =   λ(step : JSON)
+		→ λ(h : Types.StepHooks JSON)
+		→ toJSON ({ try : JSON } ⩓ Types.StepHooks JSON) ({ try = step } ⫽ h)
+
+  let renderStep
+	  : Types.Step → JSON
+	  =   λ(step : Types.Step)
+		→ step
+		  JSON
+		  renderGet
+		  renderPut
+		  renderTask
+		  renderAggregate
+		  renderDo
+		  renderTry
+
+  in  renderStep
