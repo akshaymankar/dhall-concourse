@@ -6,28 +6,32 @@ let Types = ./../types/package.dhall
 let RenderedResource =
 	  { name : Text, type : Text, source : Optional (List Types.TextTextPair) }
 
-let renderCustomResourceType = λ(x : Types.CustomResourceType) → [ x ]
+let renderCustomResourceType = λ(x : Types.CustomResourceType) → Some x
 
-let renderInBuiltResourceType = λ(x : Text) → [] : List RenderedResource
+let renderInBuiltResourceType = λ(x : Text) → None RenderedResource
 
-let renderResourceType =
-		λ(resource : Types.Resource)
-	  → merge
-		{ InBuilt =
-			renderInBuiltResourceType
-		, Custom =
-			renderCustomResourceType
-		}
-		resource.type
+let renderResourceType
+	: Types.ResourceType → List RenderedResource
+	=   λ(resourceType : Types.ResourceType)
+	  → Prelude.`Optional`.toList
+		RenderedResource
+		( merge
+		  { InBuilt =
+			  renderInBuiltResourceType
+		  , Custom =
+			  renderCustomResourceType
+		  }
+		  resourceType
+		)
 
 let renderResourceTypes =
-		λ(resources : List Types.Resource)
+		λ(resourceTypes : List Types.ResourceType)
 	  → { resource_types =
 			Prelude.`List`.concatMap
-			Types.Resource
+			Types.ResourceType
 			RenderedResource
 			renderResourceType
-			resources
+			resourceTypes
 		}
 
 in  renderResourceTypes
