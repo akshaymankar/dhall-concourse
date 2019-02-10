@@ -1,18 +1,84 @@
   λ(JSON : Type)
 → λ(toJSON : ∀(Value : Type) → ∀(v : Value) → JSON)
-→ let Types = ../types/package.dhall
+→ let Types =
+		../types/package.dhall
+
+  let Prelude =
+		https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
+
+  let RenderedGet =
+		{ get :
+			Text
+		, resource :
+			Optional Text
+		, params :
+			Optional (List Types.TextTextPair)
+		, version :
+			Optional Types.GetVersion
+		, passed :
+			Optional (List Text)
+		, trigger :
+			Optional Bool
+		}
+
+  let RenderedPut =
+		{ put :
+			Text
+		, resource :
+			Optional Text
+		, params :
+			Optional (List Types.TextTextPair)
+		, get_params :
+			Optional (List Types.TextTextPair)
+		}
+
+  let calculateActionAndResource =
+		  λ(get : Optional Text)
+		→ λ(resource : Types.Resource)
+		→ { action =
+			  Optional/fold Text get Text (λ(g : Text) → g) resource.name
+		  , resource =
+			  Optional/fold
+			  Text
+			  get
+			  (Optional Text)
+			  (λ(g : Text) → Some resource.name)
+			  (None Text)
+		  }
 
   let renderGet
 	  : Types.GetStep → Types.StepHooks JSON → JSON
 	  =   λ(g : Types.GetStep)
 		→ λ(h : Types.StepHooks JSON)
-		→ toJSON (Types.GetStep ⩓ Types.StepHooks JSON) (g ⫽ h)
+		→ let actionAndResource = calculateActionAndResource g.get g.resource
+
+		  in  toJSON
+			  (RenderedGet ⩓ Types.StepHooks JSON)
+			  (   g
+				⫽ { get =
+					  actionAndResource.action
+				  , resource =
+					  actionAndResource.resource
+				  }
+				⫽ h
+			  )
 
   let renderPut
 	  : Types.PutStep → Types.StepHooks JSON → JSON
 	  =   λ(p : Types.PutStep)
 		→ λ(h : Types.StepHooks JSON)
-		→ toJSON (Types.PutStep ⩓ Types.StepHooks JSON) (p ⫽ h)
+		→ let actionAndResource = calculateActionAndResource p.put p.resource
+
+		  in  toJSON
+			  (RenderedPut ⩓ Types.StepHooks JSON)
+			  (   p
+				⫽ { put =
+					  actionAndResource.action
+				  , resource =
+					  actionAndResource.resource
+				  }
+				⫽ h
+			  )
 
   let RenderedTask =
 		{ task :
