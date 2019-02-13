@@ -1,11 +1,55 @@
-let render = ./../../render/package.dhall
+-- let render =
+--	  https://raw.githubusercontent.com/akshaymankar/dhall-concourse/master/render/package.dhall sha256:230c3ec039ca8a3c44cc9ccf6cd08becfbc314e9c1f0bd1384effd4f422d69e2
+--	  JSON
+--	  toJSON
 
-let resourcesFromJobs = ./../../utils/resourcesFromJobs.dhall
+let render = ../../render/package.dhall JSON toJSON
 
-let jobs = ./jobs.dhall
+let resourceTypes =
+	  [ ./resource-types/bosh-deployment.dhall
+	  , ./resource-types/bosh-errand.dhall
+	  , ./resource-types/gcs.dhall
+	  , ./resource-types/slack-notification.dhall
+	  ]
 
-let resources = resourcesFromJobs jobs
+let resources =
+	  [ ./resources/bbr-cli.dhall
+	  , ./resources/cfcr-deployment.dhall
+	  , ./resources/compilation-deployment.dhall
+	  , ./resources/gaffer-source-json.dhall
+	  , ./resources/gcs-bosh-creds.dhall
+	  , ./resources/gcs-bosh-state.dhall
+	  , ./resources/gcs-kubeconfig.dhall
+	  , ./resources/gcs-kubo-deployment-tarball-untested.dhall
+	  , ./resources/gcs-kubo-deployment-tarball.dhall
+	  , ./resources/gcs-kubo-deployments.dhall
+	  , ./resources/gcs-kubo-release-tarball-untested.dhall
+	  , ./resources/gcs-kubo-release-tarball.dhall
+	  , ./resources/gcs-kubo-releases.dhall
+	  , ./resources/gcs-load-balancer-vars.dhall
+	  , ./resources/git-bosh-deployment.dhall
+	  , ./resources/git-kubo-ci.dhall
+	  , ./resources/git-kubo-deployment.dhall
+	  , ./resources/git-kubo-drats.dhall
+	  , ./resources/git-kubo-release.dhall
+	  , ./resources/github-etcd-release.dhall
+	  , ./resources/kubo-lock.dhall "aws"
+	  , ./resources/kubo-lock.dhall "gcp"
+	  , ./resources/kubo-lock.dhall "vsphere"
+	  , ./resources/kubo-lock.dhall "azure"
+	  , ./resources/kubo-version.dhall
+	  , ./resources/old-kubo-deployment-tarball.dhall
+	  , ./resources/old-kubo-release-tarball.dhall
+	  , ./resources/run-apply-addons-errand.dhall
+	  , ./resources/run-smoke-tests-errand.dhall
+	  , ./resources/slack-alert.dhall
+	  , ./resources/slackers.dhall
+	  , ./resources/source-json.dhall
+	  , ./resources/tinyproxy-deployment.dhall
+	  ]
 
-in    render.resourceTypes resources
+let jobs = [ ./jobs/run-unit-tests.dhall, ./jobs/build-kubo-release.dhall ]
+
+in    render.resourceTypes resourceTypes
 	⫽ render.resources resources
 	⫽ render.jobs jobs
