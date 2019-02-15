@@ -1,9 +1,4 @@
--- let render =
---	  https://raw.githubusercontent.com/akshaymankar/dhall-concourse/master/render/package.dhall sha256:230c3ec039ca8a3c44cc9ccf6cd08becfbc314e9c1f0bd1384effd4f422d69e2
---	  JSON
---	  toJSON
-
-let render = ../../render/package.dhall JSON toJSON
+let render = ./lib/dhall-concourse/render.dhall JSON toJSON
 
 let resourceTypes =
 	  [ ./resource-types/bosh-deployment.dhall
@@ -48,7 +43,11 @@ let resources =
 	  , ./resources/tinyproxy-deployment.dhall
 	  ]
 
-let jobs = [ ./jobs/run-unit-tests.dhall, ./jobs/build-kubo-release.dhall ]
+let jobs =
+	  [ ./jobs/run-unit-tests.dhall
+	  , ./jobs/build-kubo-release.dhall
+	  , ./jobs/package-kubo-deployment-tarball.dhall
+	  ]
 
 in    render.resourceTypes resourceTypes
 	⫽ render.resources resources
