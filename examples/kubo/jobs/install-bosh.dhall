@@ -6,7 +6,7 @@ let Helpers = ../lib/dhall-concourse/helpers.dhall
 
 let Prelude = ../lib/prelude/package.dhall
 
-let upstreamJobs = [ ./build-kubo-release.dhall ]
+let upstreamJobs = [ ./package-kubo-deployment-tarball.dhall ]
 
 let passed = Some upstreamJobs
 
@@ -34,44 +34,39 @@ let getKuboReleaseTarballUntested =
 		  }
 	  )
 
-let buildKuboDeploymentTarball =
-	  Helpers.taskStep
-	  (   Defaults.TaskStep
-		⫽ { task =
-			  "build-kubo-deployment-tarball"
-		  , config =
-			  Concourse.TaskSpec.File
-			  "git-kubo-ci/tasks/build-kubo-deployment-tarball.yml"
-		  }
-	  )
-
-let putKuboDeploymentTarballUntested =
-	  Helpers.putStep
-	  (   Defaults.PutStep
+let getKuboDeploymentTarballUntested =
+	  Helpers.getStep
+	  (   Defaults.GetStep
 		⫽ { resource =
 			  ../resources/gcs-kubo-deployment-tarball-untested.dhall
-		  , params =
-			  Some
-			  [ Prelude.JSON.keyText
-				"file"
-				"kubo-deployment-tarball/kubo-deployment*.tgz"
-			  ]
+		  , passed =
+			  Some (../utils/job-names.dhall upstreamJobs)
 		  }
 	  )
 
-in    Defaults.Job
-	⫽ { name =
-		  "package-kubo-deployment-tarball"
-	  , plan =
-		  [ Helpers.aggregateStep
-			[ ../steps/get-slackers.dhall
-			, ../steps/get-kubo-ci.dhall
-			, getKuboDeployment
-			, getKuboRelease
-			, getKuboVersion
-			, getKuboReleaseTarballUntested
+let getKuboLock =
+		λ(env : Text)
+	  → Helpers.getStep
+		(   Defaults.GetStep
+		  ⫽ { resource =
+				../resources/kubo-lock.dhall env
+			, passed =
+				Some (../utils/job-names.dhall upstreamJobs)
+			}
+		)
+
+in    λ(env : Text)
+	→   Defaults.Job
+	  ⫽ { name =
+			"claim-lock-${env}"
+		, plan =
+			[ Helpers.aggregateStep
+			  [ getKuboDeployment
+			  , getKuboRelease
+			  , getKuboVersion
+			  , getKuboReleaseTarballUntested
+			  , getKuboDeploymentTarballUntested
+			  , getKuboLock env
+			  ]
 			]
-		  , buildKuboDeploymentTarball
-		  , putKuboDeploymentTarballUntested
-		  ]
-	  }
+		}
