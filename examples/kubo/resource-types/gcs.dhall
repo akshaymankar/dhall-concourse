@@ -1,8 +1,4 @@
-let Concourse =
-	  ../lib/dhall-concourse/types.dhall
+let Concourse = ../lib/dhall-concourse/types.dhall
 
-in    ./docker-image-resource.dhall
-	  "gcs"
-	  "cfcommunity/slack-notification-resource"
-	  "latest"
+in    ./docker-image-resource.dhall "gcs" "frodenas/gcs-resource" "latest"
 	: Concourse.ResourceType
