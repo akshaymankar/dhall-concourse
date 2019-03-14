@@ -1,1 +1,1 @@
-https://raw.githubusercontent.com/dhall-lang/dhall-lang/gabriel/json_pure_dhall/Prelude/JSON/JSON sha256:0b757fa8354f8a8e068e4ebf5094732cf49e3022bd34b0b4d0566de3b629510b
+https://raw.githubusercontent.com/dhall-lang/dhall-lang/gabriel/json_pure_dhall/Prelude/JSON/JSON
