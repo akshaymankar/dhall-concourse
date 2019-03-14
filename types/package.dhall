@@ -10,6 +10,8 @@
 	./ImageResource.dhall
 , Job =
 	./Job.dhall
+, JSONObject =
+	./JSONObject.dhall
 , PutStep =
 	./PutStep.dhall
 , Resource =

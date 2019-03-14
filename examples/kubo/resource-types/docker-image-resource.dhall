@@ -1,11 +1,12 @@
-let Concourse =
-	  ../lib/dhall-concourse/types.dhall
+let Concourse = ../lib/dhall-concourse/types.dhall
 
-let Defaults =
-	  ../lib/dhall-concourse/defaults.dhall
+let Defaults = ../lib/dhall-concourse/defaults.dhall
 
-let Prelude =
-	  ../lib/prelude/package.dhall
+let Prelude = ../lib/prelude/package.dhall
+
+let JSON = ../lib/prelude/json-type.dhall
+
+let JSONHelpers = ../lib/prelude/json-helpers.dhall
 
 in    λ(name : Text)
 	→ λ(repository : Text)
@@ -18,8 +19,11 @@ in    λ(name : Text)
 				"docker-image"
 			, source =
 				Some
-				[ Prelude.JSON.keyText "repository" repository
-				, Prelude.JSON.keyText "tag" tag
+				[ JSONHelpers.keyValue
+				  JSON
+				  "repository"
+				  (JSONHelpers.string repository)
+				, JSONHelpers.keyValue JSON "tag" (JSONHelpers.string tag)
 				]
 			}
 		)

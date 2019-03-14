@@ -1,11 +1,8 @@
-let Concourse =
-	  ../lib/dhall-concourse/types.dhall
+let Concourse = ../lib/dhall-concourse/types.dhall
 
-let Defaults =
-	  ../lib/dhall-concourse/defaults.dhall
+let Defaults = ../lib/dhall-concourse/defaults.dhall
 
-let Prelude =
-	  ../lib/prelude/package.dhall
+let Prelude = ../lib/prelude/package.dhall
 
 in    λ(name : Text)
 	→ λ(uri : Text)
