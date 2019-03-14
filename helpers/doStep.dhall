@@ -2,8 +2,7 @@ let Types = ./../types/package.dhall
 
 let Defaults = ./../defaults/package.dhall
 
-let Prelude =
-	  https://raw.githubusercontent.com/dhall-lang/dhall-lang/master/Prelude/package.dhall
+let Prelude = https://prelude.dhall-lang.org/package.dhall
 
 let doStep
 	: List Types.Step → Types.Step
