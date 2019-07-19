@@ -1,8 +1,8 @@
-let Types = ./../types/package.dhall
+let Types = ../types/package.dhall
 
-let Defaults = ./../defaults/package.dhall
+let Defaults = ../defaults/package.dhall
 
-let Prelude = https://prelude.dhall-lang.org/package.dhall
+let Prelude = ../lib/prelude.dhall
 
 let aggregateStep
 	: List Types.Step → Types.Step
@@ -15,7 +15,7 @@ let aggregateStep
 	  → λ(DoStep : List Step → Types.StepHooks Step → Step)
 	  → λ(TryStep : Step → Types.StepHooks Step → Step)
 	  → let stepTypeFix =
-			  Prelude.`List`.map
+			  Prelude.List.map
 			  Types.Step
 			  Step
 			  (   λ(s : Types.Step)

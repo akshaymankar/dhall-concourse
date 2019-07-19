@@ -1,10 +1,9 @@
-let Prelude =
-	  https://prelude.dhall-lang.org/package.dhall sha256:534e4a9e687ba74bfac71b30fc27aa269c0465087ef79bf483e876781602a454
+let Prelude = ../lib/prelude.dhall
 
-let Types = ./../types/package.dhall
+let Types = ../types/package.dhall
 
 let RenderedResource =
-	  { name : Text, type : Text, source : Optional (List Types.TextTextPair) }
+	  { name : Text, type : Text, source : Optional ../types/JSONObject.dhall }
 
 let renderCustomResourceType = λ(x : Types.CustomResourceType) → Some x
 
@@ -13,7 +12,7 @@ let renderInBuiltResourceType = λ(x : Text) → None RenderedResource
 let renderResourceType
 	: Types.ResourceType → List RenderedResource
 	=   λ(resourceType : Types.ResourceType)
-	  → Prelude.`Optional`.toList
+	  → Prelude.Optional.toList
 		RenderedResource
 		( merge
 		  { InBuilt =
@@ -27,7 +26,7 @@ let renderResourceType
 let renderResourceTypes =
 		λ(resourceTypes : List Types.ResourceType)
 	  → { resource_types =
-			Prelude.`List`.concatMap
+			Prelude.List.concatMap
 			Types.ResourceType
 			RenderedResource
 			renderResourceType
