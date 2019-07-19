@@ -1,6 +1,6 @@
-let Types = ./../types/package.dhall
+let Types = ../types/package.dhall
 
-let Defaults = ./../defaults/package.dhall
+let Defaults = ../defaults/package.dhall
 
 let tryStep
 	: Types.Step → Types.Step

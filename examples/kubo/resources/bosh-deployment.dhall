@@ -13,7 +13,7 @@ in    λ(name : Text)
 		⫽ { name =
 			  name
 		  , type =
-			  ./../resource-types/bosh-deployment.dhall
+			  ../resource-types/bosh-deployment.dhall
 		  , source =
 			  Some
 			  [ Prelude.JSON.keyText "deployment" deployment

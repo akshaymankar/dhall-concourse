@@ -1,4 +1,4 @@
-let Types = ./../types/package.dhall
+let Types = ../types/package.dhall
 
 let Defaults = ../defaults/package.dhall
 

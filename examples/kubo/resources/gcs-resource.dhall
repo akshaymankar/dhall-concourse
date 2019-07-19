@@ -15,7 +15,7 @@ in    λ(name : Text)
 		⫽ { name =
 			  name
 		  , type =
-			  ./../resource-types/gcs.dhall
+			  ../resource-types/gcs.dhall
 		  , source =
 			  Some
 			  [ Prelude.JSON.keyText "json_key" jsonKey
