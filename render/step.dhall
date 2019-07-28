@@ -17,6 +17,12 @@
 			Optional (List Text)
 		, trigger :
 			Optional Bool
+		, attempts :
+			Optional Natural
+		, timeout :
+			Optional Text
+		, tags :
+			Optional (List Text)
 		}
 
   let RenderedPut =
@@ -28,6 +34,12 @@
 			Optional (List Types.TextTextPair)
 		, get_params :
 			Optional (List Types.TextTextPair)
+		, attempts :
+			Optional Natural
+		, timeout :
+			Optional Text
+		, tags :
+			Optional (List Text)
 		}
 
   let calculateActionAndResource =
@@ -95,6 +107,12 @@
 			Optional (List Types.TextTextPair)
 		, output_mapping :
 			Optional (List Types.TextTextPair)
+		, attempts :
+			Optional Natural
+		, timeout :
+			Optional Text
+		, tags :
+			Optional (List Text)
 		}
 
   let renderTaskConfig =

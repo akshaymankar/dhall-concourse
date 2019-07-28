@@ -12,4 +12,10 @@ in  { get :
 		Optional (List Text)
 	, trigger :
 		Optional Bool
+	, tags :
+		Optional (List Text)
+	, timeout :
+		Optional Text
+	, attempts :
+		Optional Natural
 	}

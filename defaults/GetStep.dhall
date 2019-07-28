@@ -12,5 +12,11 @@ in    { get =
 		  None (List Text)
 	  , trigger =
 		  None Bool
+	  , tags =
+		  None (List Text)
+	  , timeout =
+		  None Text
+	  , attempts =
+		  None Natural
 	  }
 	: Types.GetStep

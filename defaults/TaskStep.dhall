@@ -14,5 +14,11 @@ in    { task =
 		  None (List Types.TextTextPair)
 	  , output_mapping =
 		  None (List Types.TextTextPair)
+	  , tags =
+		  None (List Text)
+	  , timeout =
+		  None Text
+	  , attempts =
+		  None Natural
 	  }
 	: Types.TaskStep

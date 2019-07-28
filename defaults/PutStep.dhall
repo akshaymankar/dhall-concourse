@@ -10,6 +10,12 @@ let PutStep
 		  None (List Types.TextTextPair)
 	  , get_params =
 		  None (List Types.TextTextPair)
+	  , tags =
+		  None (List Text)
+	  , timeout =
+		  None Text
+	  , attempts =
+		  None Natural
 	  }
 
 in  PutStep

@@ -12,4 +12,10 @@
 	Optional (List ./TextTextPair.dhall)
 , output_mapping :
 	Optional (List ./TextTextPair.dhall)
+, tags :
+	Optional (List Text)
+, timeout :
+	Optional Text
+, attempts :
+	Optional Natural
 }
