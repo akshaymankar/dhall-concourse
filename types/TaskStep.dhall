@@ -1,21 +1,21 @@
 { task :
-	Text
+    Text
 , config :
-	./TaskSpec.dhall
+    ./TaskSpec.dhall
 , privileged :
-	Optional Bool
+    Optional Bool
 , params :
-	Optional (List ./TextTextPair.dhall)
+    Optional (List ./TextTextPair.dhall)
 , image :
-	Optional Text
+    Optional Text
 , input_mapping :
-	Optional (List ./TextTextPair.dhall)
+    Optional (List ./TextTextPair.dhall)
 , output_mapping :
-	Optional (List ./TextTextPair.dhall)
+    Optional (List ./TextTextPair.dhall)
 , tags :
-	Optional (List Text)
+    Optional (List Text)
 , timeout :
-	Optional Text
+    Optional Text
 , attempts :
-	Optional Natural
+    Optional Natural
 }

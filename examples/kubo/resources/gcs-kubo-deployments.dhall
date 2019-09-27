@@ -1,9 +1,8 @@
-let Concourse =
-	  ../lib/dhall-concourse/types.dhall
+let Concourse = ../lib/dhall-concourse/types.dhall
 
 in    ./gcs-regexp-resource.dhall
-	  "gcs-kubo-deployments"
-	  "((gcs-json-key))"
-	  "kubo-releases"
-	  "kubo-deployment-(.*).tgz"
-	: Concourse.Resource
+        "gcs-kubo-deployments"
+        "((gcs-json-key))"
+        "kubo-releases"
+        "kubo-deployment-(.*).tgz"
+    : Concourse.Resource

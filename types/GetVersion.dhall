@@ -1,1 +1,1 @@
-< Latest : Text | Every : Text | SpecificVersion : (List ./TextTextPair.dhall) >
+< Latest : Text | Every : Text | SpecificVersion : List ./TextTextPair.dhall >

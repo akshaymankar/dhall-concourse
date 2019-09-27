@@ -1,21 +1,21 @@
 { CustomResourceType =
-	./CustomResourceType.dhall
+    ./CustomResourceType.dhall
 , Resource =
-	./Resource.dhall
+    ./Resource.dhall
 , Job =
-	./Job.dhall
+    ./Job.dhall
 , GetStep =
-	./GetStep.dhall
+    ./GetStep.dhall
 , ImageResource =
-	./ImageResource.dhall
+    ./ImageResource.dhall
 , StepHooks =
-	./StepHooks.dhall
+    ./StepHooks.dhall
 , TaskStep =
-	./TaskStep.dhall
+    ./TaskStep.dhall
 , TaskConfig =
-	./TaskConfig.dhall
+    ./TaskConfig.dhall
 , TaskRunConfig =
-	./TaskRunConfig.dhall
+    ./TaskRunConfig.dhall
 , PutStep =
-	./PutStep.dhall
+    ./PutStep.dhall
 }

@@ -1,41 +1,41 @@
 { BasicStep =
-	./BasicStep.dhall
+    ./BasicStep.dhall
 , CustomResourceType =
-	./CustomResourceType.dhall
+    ./CustomResourceType.dhall
 , GetStep =
-	./GetStep.dhall
+    ./GetStep.dhall
 , GetVersion =
-	./GetVersion.dhall
+    ./GetVersion.dhall
 , ImageResource =
-	./ImageResource.dhall
+    ./ImageResource.dhall
 , Job =
-	./Job.dhall
+    ./Job.dhall
 , JSONObject =
-	./JSONObject.dhall
+    ./JSONObject.dhall
 , PutStep =
-	./PutStep.dhall
+    ./PutStep.dhall
 , Resource =
-	./Resource.dhall
+    ./Resource.dhall
 , ResourceType =
-	./ResourceType.dhall
+    ./ResourceType.dhall
 , Step =
-	./Step.dhall
+    ./Step.dhall
 , StepHooks =
-	./StepHooks.dhall
+    ./StepHooks.dhall
 , TaskConfig =
-	./TaskConfig.dhall
+    ./TaskConfig.dhall
 , TaskInput =
-	./TaskInput.dhall
+    ./TaskInput.dhall
 , TaskOutput =
-	./TaskOutput.dhall
+    ./TaskOutput.dhall
 , TaskCache =
-	./TaskCache.dhall
+    ./TaskCache.dhall
 , TaskRunConfig =
-	./TaskRunConfig.dhall
+    ./TaskRunConfig.dhall
 , TaskStep =
-	./TaskStep.dhall
+    ./TaskStep.dhall
 , TaskSpec =
-	./TaskSpec.dhall
+    ./TaskSpec.dhall
 , TextTextPair =
-	./TextTextPair.dhall
+    ./TextTextPair.dhall
 }

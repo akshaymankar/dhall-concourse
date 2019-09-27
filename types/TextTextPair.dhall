@@ -1,3 +1,1 @@
-{ mapKey : Text
-, mapValue : Text
-}
+{ mapKey : Text, mapValue : Text }

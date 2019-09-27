@@ -1,13 +1,13 @@
 { taskStep =
-	./taskStep.dhall
+    ./taskStep.dhall
 , putStep =
-	./putStep.dhall
+    ./putStep.dhall
 , getStep =
-	./getStep.dhall
+    ./getStep.dhall
 , aggregateStep =
-	./aggregateStep.dhall
+    ./aggregateStep.dhall
 , doStep =
-	./doStep.dhall
+    ./doStep.dhall
 , tryStep =
-	./tryStep.dhall
+    ./tryStep.dhall
 }

@@ -1,9 +1,9 @@
 { path :
-	Text
+    Text
 , args :
-	Optional (List Text)
+    Optional (List Text)
 , dir :
-	Optional Text
+    Optional Text
 , user :
-	Optional Text
+    Optional Text
 }
