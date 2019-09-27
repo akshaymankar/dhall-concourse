@@ -15,8 +15,7 @@ let getKuboRelease =
 let runReleaseUnitTests =
       Helpers.taskStep
         (   Defaults.TaskStep
-          ⫽ { task =
-                "run-release-unit-tests"
+          ⫽ { task = "run-release-unit-tests"
             , config =
                 Concourse.TaskSpec.File
                   "git-kubo-ci/tasks/run-release-unit-tests.yml"
@@ -26,8 +25,7 @@ let runReleaseUnitTests =
 let runDeploymentUnitTests =
       Helpers.taskStep
         (   Defaults.TaskStep
-          ⫽ { task =
-                "run-deployment-unit-tests"
+          ⫽ { task = "run-deployment-unit-tests"
             , config =
                 Concourse.TaskSpec.File
                   "git-kubo-ci/tasks/run-deployment-unit-tests.yml"
@@ -35,8 +33,7 @@ let runDeploymentUnitTests =
         )
 
 in    Defaults.Job
-    ⫽ { name =
-          "run-unit-tests"
+    ⫽ { name = "run-unit-tests"
       , plan =
           [ ../steps/get-slackers.dhall
           , ../steps/get-kubo-ci.dhall

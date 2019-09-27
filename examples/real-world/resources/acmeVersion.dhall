@@ -7,10 +7,8 @@ let Defaults =
 let versionResource
     : Concourse.Resource
     =   Defaults.Resource
-      ⫽ { name =
-            "acme-version"
-        , type =
-            Concourse.ResourceType.InBuilt "semver"
+      ⫽ { name = "acme-version"
+        , type = Concourse.ResourceType.InBuilt "semver"
         , source =
             Some
             [ { mapKey = "driver", mapValue = "gcs" }

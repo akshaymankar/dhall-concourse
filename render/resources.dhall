@@ -5,22 +5,14 @@ let Types = ../types/package.dhall
 let map = Prelude.List.map
 
 let RenderedResource =
-      { name :
-          Text
-      , type :
-          Text
-      , source :
-          Optional (List Types.TextTextPair)
-      , version :
-          Optional (List Types.TextTextPair)
-      , params :
-          Optional (List Types.TextTextPair)
-      , check_every :
-          Optional Text
-      , tags :
-          Optional (List Text)
-      , webhook_token :
-          Optional Text
+      { name : Text
+      , type : Text
+      , source : Optional (List Types.TextTextPair)
+      , version : Optional (List Types.TextTextPair)
+      , params : Optional (List Types.TextTextPair)
+      , check_every : Optional Text
+      , tags : Optional (List Text)
+      , webhook_token : Optional Text
       }
 
 let renderInBuiltResource = λ(x : Text) → x

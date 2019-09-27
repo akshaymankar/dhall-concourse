@@ -5,10 +5,8 @@ let Defaults = ../lib/dhall-concourse/defaults.dhall
 let Prelude = ../lib/prelude/package.dhall
 
 in      Defaults.Resource
-      ⫽ { name =
-            "bbr-cli"
-        , type =
-            Concourse.ResourceType.InBuilt "github-release"
+      ⫽ { name = "bbr-cli"
+        , type = Concourse.ResourceType.InBuilt "github-release"
         , source =
             Some
             [ Prelude.JSON.keyText "owner" "cloudfoundry-incubator"

@@ -25,18 +25,15 @@ let getGafferSourceJSON =
 let getKuboVersion =
       Helpers.getStep
         (   Defaults.GetStep
-          ⫽ { resource =
-                ../resources/kubo-version.dhall
-            , params =
-                Some [ Prelude.JSON.keyText "pre" "dev" ]
+          ⫽ { resource = ../resources/kubo-version.dhall
+            , params = Some [ Prelude.JSON.keyText "pre" "dev" ]
             }
         )
 
 let buildKuboRelease =
       Helpers.taskStep
         (   Defaults.TaskStep
-          ⫽ { task =
-                "build-kubo-release"
+          ⫽ { task = "build-kubo-release"
             , config =
                 Concourse.TaskSpec.File "git-kubo-ci/tasks/build-kubo-release"
             }
@@ -45,8 +42,7 @@ let buildKuboRelease =
 let generateCompilationManifest =
       Helpers.taskStep
         (   Defaults.TaskStep
-          ⫽ { task =
-                "generate-compilation-manifest"
+          ⫽ { task = "generate-compilation-manifest"
             , config =
                 Concourse.TaskSpec.File
                   "git-kubo-ci/tasks/generate-compilation-manifest.yml"
@@ -56,8 +52,7 @@ let generateCompilationManifest =
 let putCompilationDeployment =
       Helpers.putStep
         (   Defaults.PutStep
-          ⫽ { resource =
-                ../resources/compilation-deployment.dhall
+          ⫽ { resource = ../resources/compilation-deployment.dhall
             , params =
                 Some
                 [ Prelude.JSON.keyText
@@ -76,12 +71,10 @@ let putCompilationDeployment =
 let export =
       Helpers.taskStep
         (   Defaults.TaskStep
-          ⫽ { task =
-                "export"
+          ⫽ { task = "export"
             , config =
                 Concourse.TaskSpec.File "git-kubo-ci/tasks/export-release.yml"
-            , params =
-                Some [ Prelude.JSON.keyText "RELEASE_LIST" "kubo" ]
+            , params = Some [ Prelude.JSON.keyText "RELEASE_LIST" "kubo" ]
             , input_mapping =
                 Some
                 [ Prelude.JSON.keyText "gcs-source-json" "gaffer-source-json" ]
@@ -91,18 +84,15 @@ let export =
 let putKuboVersion =
       Helpers.putStep
         (   Defaults.PutStep
-          ⫽ { resource =
-                ../resources/kubo-version.dhall
-            , params =
-                Some [ Prelude.JSON.keyText "pre" "dev" ]
+          ⫽ { resource = ../resources/kubo-version.dhall
+            , params = Some [ Prelude.JSON.keyText "pre" "dev" ]
             }
         )
 
 let putKuboReleaseTarballUntested =
       Helpers.putStep
         (   Defaults.PutStep
-          ⫽ { resource =
-                ../resources/gcs-kubo-release-tarball-untested.dhall
+          ⫽ { resource = ../resources/gcs-kubo-release-tarball-untested.dhall
             , params =
                 Some
                 [ Prelude.JSON.keyText "file" "compiled-releases/kubo-*.tgz" ]
@@ -110,8 +100,7 @@ let putKuboReleaseTarballUntested =
         )
 
 in    Defaults.Job
-    ⫽ { name =
-          "build-kubo-release"
+    ⫽ { name = "build-kubo-release"
       , plan =
           [ Helpers.aggregateStep
               [ ../steps/get-slackers.dhall

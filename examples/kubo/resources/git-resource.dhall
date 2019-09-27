@@ -9,10 +9,8 @@ in    λ(name : Text)
     → λ(branch : Text)
     → λ(privateKey : Text)
     →     Defaults.Resource
-        ⫽ { name =
-              name
-          , type =
-              Concourse.ResourceType.InBuilt "git"
+        ⫽ { name = name
+          , type = Concourse.ResourceType.InBuilt "git"
           , source =
               Some
               [ Prelude.JSON.keyText "uri" uri

@@ -17,18 +17,15 @@ let getKuboRelease = ../steps/get-kubo-release.dhall (None Bool) passed
 let getKuboVersion =
       Helpers.getStep
         (   Defaults.GetStep
-          ⫽ { resource =
-                ../resources/kubo-version.dhall
-            , passed =
-                Some (../utils/job-names.dhall upstreamJobs)
+          ⫽ { resource = ../resources/kubo-version.dhall
+            , passed = Some (../utils/job-names.dhall upstreamJobs)
             }
         )
 
 let buildKuboDeploymentTarball =
       Helpers.taskStep
         (   Defaults.TaskStep
-          ⫽ { task =
-                "build-kubo-deployment-tarball"
+          ⫽ { task = "build-kubo-deployment-tarball"
             , config =
                 Concourse.TaskSpec.File
                   "git-kubo-ci/tasks/build-kubo-deployment-tarball.yml"
@@ -38,8 +35,7 @@ let buildKuboDeploymentTarball =
 let putKuboDeploymentTarballUntested =
       Helpers.putStep
         (   Defaults.PutStep
-          ⫽ { resource =
-                ../resources/gcs-kubo-deployment-tarball-untested.dhall
+          ⫽ { resource = ../resources/gcs-kubo-deployment-tarball-untested.dhall
             , params =
                 Some
                 [ Prelude.JSON.keyText
@@ -50,8 +46,7 @@ let putKuboDeploymentTarballUntested =
         )
 
 in    Defaults.Job
-    ⫽ { name =
-          "package-kubo-deployment-tarball"
+    ⫽ { name = "package-kubo-deployment-tarball"
       , plan =
           [ Helpers.aggregateStep
               [ ../steps/get-slackers.dhall

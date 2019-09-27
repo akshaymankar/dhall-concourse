@@ -5,10 +5,8 @@ let Defaults = ../lib/dhall-concourse/defaults.dhall
 let Prelude = ../lib/prelude/package.dhall
 
 in      Defaults.Resource
-      ⫽ { name =
-            "kubo-version"
-        , type =
-            Concourse.ResourceType.InBuilt "semver"
+      ⫽ { name = "kubo-version"
+        , type = Concourse.ResourceType.InBuilt "semver"
         , source =
             Some
             [ Prelude.JSON.keyText "driver" "gcs"

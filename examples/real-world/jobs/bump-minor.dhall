@@ -13,10 +13,8 @@ let bumpMinorStep
     : Concourse.Step
     = Helpers.putStep
         (   Defaults.PutStep
-          ⫽ { resource =
-                acmeVersion
-            , params =
-                Some [ { mapKey = "bump", mapValue = "minor" } ]
+          ⫽ { resource = acmeVersion
+            , params = Some [ { mapKey = "bump", mapValue = "minor" } ]
             }
         )
 

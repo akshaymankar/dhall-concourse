@@ -7,10 +7,8 @@ let Prelude = ../lib/prelude/package.dhall
 in    λ(name : Text)
     → λ(deployment : Text)
     →     Defaults.Resource
-        ⫽ { name =
-              name
-          , type =
-              ../resource-types/bosh-deployment.dhall
+        ⫽ { name = name
+          , type = ../resource-types/bosh-deployment.dhall
           , source =
               Some
               [ Prelude.JSON.keyText "deployment" deployment

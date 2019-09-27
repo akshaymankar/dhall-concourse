@@ -6,10 +6,8 @@ let Prelude = ../lib/prelude/package.dhall
 
 in    λ(env : Text)
     →     Defaults.Resource
-        ⫽ { name =
-              "kubo-lock-${env}"
-          , type =
-              Concourse.ResourceType.InBuilt "pool"
+        ⫽ { name = "kubo-lock-${env}"
+          , type = Concourse.ResourceType.InBuilt "pool"
           , source =
               Some
               [ Prelude.JSON.keyText

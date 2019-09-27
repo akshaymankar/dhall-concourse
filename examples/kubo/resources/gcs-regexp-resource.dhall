@@ -9,10 +9,8 @@ in    λ(name : Text)
     → λ(bucket : Text)
     → λ(regexp : Text)
     →     Defaults.Resource
-        ⫽ { name =
-              name
-          , type =
-              ../resource-types/gcs.dhall
+        ⫽ { name = name
+          , type = ../resource-types/gcs.dhall
           , source =
               Some
               [ Prelude.JSON.keyText "json_key" jsonKey

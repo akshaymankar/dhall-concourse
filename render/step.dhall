@@ -5,48 +5,31 @@
   let Prelude = ../lib/prelude.dhall
   
   let RenderedGet =
-        { get :
-            Text
-        , resource :
-            Optional Text
-        , params :
-            Optional (List Types.TextTextPair)
-        , version :
-            Optional Types.GetVersion
-        , passed :
-            Optional (List Text)
-        , trigger :
-            Optional Bool
-        , attempts :
-            Optional Natural
-        , timeout :
-            Optional Text
-        , tags :
-            Optional (List Text)
+        { get : Text
+        , resource : Optional Text
+        , params : Optional (List Types.TextTextPair)
+        , version : Optional Types.GetVersion
+        , passed : Optional (List Text)
+        , trigger : Optional Bool
+        , attempts : Optional Natural
+        , timeout : Optional Text
+        , tags : Optional (List Text)
         }
   
   let RenderedPut =
-        { put :
-            Text
-        , resource :
-            Optional Text
-        , params :
-            Optional (List Types.TextTextPair)
-        , get_params :
-            Optional (List Types.TextTextPair)
-        , attempts :
-            Optional Natural
-        , timeout :
-            Optional Text
-        , tags :
-            Optional (List Text)
+        { put : Text
+        , resource : Optional Text
+        , params : Optional (List Types.TextTextPair)
+        , get_params : Optional (List Types.TextTextPair)
+        , attempts : Optional Natural
+        , timeout : Optional Text
+        , tags : Optional (List Text)
         }
   
   let calculateActionAndResource =
           λ(get : Optional Text)
         → λ(resource : Types.Resource)
-        → { action =
-              Optional/fold Text get Text (λ(g : Text) → g) resource.name
+        → { action = Optional/fold Text get Text (λ(g : Text) → g) resource.name
           , resource =
               Optional/fold
                 Text
@@ -65,10 +48,8 @@
           in  toJSON
                 (RenderedGet ⩓ Types.StepHooks JSON)
                 (   g
-                  ⫽ { get =
-                        actionAndResource.action
-                    , resource =
-                        actionAndResource.resource
+                  ⫽ { get = actionAndResource.action
+                    , resource = actionAndResource.resource
                     }
                   ⫽ h
                 )
@@ -82,37 +63,24 @@
           in  toJSON
                 (RenderedPut ⩓ Types.StepHooks JSON)
                 (   p
-                  ⫽ { put =
-                        actionAndResource.action
-                    , resource =
-                        actionAndResource.resource
+                  ⫽ { put = actionAndResource.action
+                    , resource = actionAndResource.resource
                     }
                   ⫽ h
                 )
   
   let RenderedTask =
-        { task :
-            Text
-        , config :
-            Optional Types.TaskConfig
-        , file :
-            Optional Text
-        , privileged :
-            Optional Bool
-        , params :
-            Optional (List Types.TextTextPair)
-        , image :
-            Optional Text
-        , input_mapping :
-            Optional (List Types.TextTextPair)
-        , output_mapping :
-            Optional (List Types.TextTextPair)
-        , attempts :
-            Optional Natural
-        , timeout :
-            Optional Text
-        , tags :
-            Optional (List Text)
+        { task : Text
+        , config : Optional Types.TaskConfig
+        , file : Optional Text
+        , privileged : Optional Bool
+        , params : Optional (List Types.TextTextPair)
+        , image : Optional Text
+        , input_mapping : Optional (List Types.TextTextPair)
+        , output_mapping : Optional (List Types.TextTextPair)
+        , attempts : Optional Natural
+        , timeout : Optional Text
+        , tags : Optional (List Text)
         }
   
   let renderTaskConfig =

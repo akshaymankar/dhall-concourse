@@ -10,10 +10,8 @@ in    λ(trigger : Optional Bool)
     → λ(passed : Optional (List Concourse.Job))
     → Helpers.getStep
         (   Defaults.GetStep
-          ⫽ { resource =
-                ../resources/git-kubo-release.dhall
-            , trigger =
-                trigger
+          ⫽ { resource = ../resources/git-kubo-release.dhall
+            , trigger = trigger
             , passed =
                 Prelude.Optional.map
                   (List Concourse.Job)

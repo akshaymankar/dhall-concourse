@@ -15,10 +15,8 @@ let renderResourceType
       → Prelude.Optional.toList
           RenderedResource
           ( merge
-              { InBuilt =
-                  renderInBuiltResourceType
-              , Custom =
-                  renderCustomResourceType
+              { InBuilt = renderInBuiltResourceType
+              , Custom = renderCustomResourceType
               }
               resourceType
           )

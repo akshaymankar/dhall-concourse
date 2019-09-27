@@ -5,10 +5,8 @@ let Defaults = ../lib/dhall-concourse/defaults.dhall
 let Prelude = ../lib/prelude/package.dhall
 
 in      Defaults.Resource
-      ⫽ { name =
-            "github-etcd-release"
-        , type =
-            Concourse.ResourceType.InBuilt "github-release"
+      ⫽ { name = "github-etcd-release"
+        , type = Concourse.ResourceType.InBuilt "github-release"
         , source =
             Some
             [ Prelude.JSON.keyText "owner" "cloudfoundry-incubator"

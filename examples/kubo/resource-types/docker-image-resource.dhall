@@ -13,10 +13,8 @@ in    λ(name : Text)
     → λ(tag : Text)
     →   Concourse.ResourceType.Custom
           (   Defaults.CustomResourceType
-            ⫽ { name =
-                  name
-              , type =
-                  "docker-image"
+            ⫽ { name = name
+              , type = "docker-image"
               , source =
                   Some
                   [ JSONHelpers.keyValue
