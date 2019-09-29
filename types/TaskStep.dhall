@@ -1,6 +1,7 @@
 { task : Text
 , config : ./TaskSpec.dhall
 , privileged : Optional Bool
+, vars : Optional ./JSONObject.dhall
 , params : Optional (List ./TextTextPair.dhall)
 , image : Optional Text
 , input_mapping : Optional (List ./TextTextPair.dhall)

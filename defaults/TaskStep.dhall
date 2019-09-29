@@ -7,6 +7,7 @@ in    { task = "CHANGEME"
       , image = None Text
       , input_mapping = None (List Types.TextTextPair)
       , output_mapping = None (List Types.TextTextPair)
+	  , vars = None Types.JSONObject
       , tags = None (List Text)
       , timeout = None Text
       , attempts = None Natural

@@ -1,8 +1,8 @@
 let Types = ../types/package.dhall
 
 in    { type = "CHANGEME"
-      , source = [] : List Types.TextTextPair
-      , params = None (List Types.TextTextPair)
+      , source = None Types.JSONObject
+      , params = None Types.JSONObject
       , version = None (List Types.TextTextPair)
       }
     : Types.ImageResource

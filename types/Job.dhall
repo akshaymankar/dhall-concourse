@@ -1,8 +1,11 @@
 let Step = ./Step.dhall
 
 in  { name : Text
+    , oldName : Optional Text
     , plan : List Step
     , serial : Optional Bool
+    , build_log_retention :
+        Optional ./JobBuildLogRetention.dhall
     , build_logs_to_retain : Optional Natural
     , serial_groups : Optional (List Text)
     , max_in_flight : Optional Natural

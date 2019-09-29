@@ -2,8 +2,9 @@ let Resource = ./Resource.dhall
 
 in  { put : Optional Text
     , resource : Resource
-    , params : Optional (List ./TextTextPair.dhall)
-    , get_params : Optional (List ./TextTextPair.dhall)
+	, inputs : Optional (List Text)
+    , params : Optional ./JSONObject.dhall
+    , get_params : Optional ./JSONObject.dhall
     , tags : Optional (List Text)
     , timeout : Optional Text
     , attempts : Optional Natural

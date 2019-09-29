@@ -1,5 +1,5 @@
 { type : Text
-, source : List ./TextTextPair.dhall
-, params : Optional (List ./TextTextPair.dhall)
+, source : Optional (./JSONObject.dhall)
+, params : Optional (./JSONObject.dhall)
 , version : Optional (List ./TextTextPair.dhall)
 }

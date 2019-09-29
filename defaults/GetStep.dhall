@@ -2,7 +2,7 @@ let Types = ../types/package.dhall
 
 in    { get = None Text
       , resource = ./Resource.dhall
-      , params = None (List Types.TextTextPair)
+      , params = None Types.JSONObject
       , version = None Types.GetVersion
       , passed = None (List Text)
       , trigger = None Bool

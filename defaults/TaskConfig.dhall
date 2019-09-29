@@ -7,6 +7,7 @@ in    { platform = "linux"
           , dir = None Text
           , user = None Text
           }
+	  , container_limits = None Types.TaskContainerLimits
       , image_resource = None Types.ImageResource
       , rootfs_uri = None Text
       , inputs = None (List Types.TaskInput)

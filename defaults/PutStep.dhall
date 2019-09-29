@@ -1,14 +1,12 @@
 let Types = ../types/package.dhall
 
-let PutStep
-    : Types.PutStep
-    = { put = None Text
+in    { put = None Text
       , resource = ./Resource.dhall
-      , params = None (List Types.TextTextPair)
-      , get_params = None (List Types.TextTextPair)
+      , inputs = None (List Text)
+      , params = None Types.JSONObject
+      , get_params = None Types.JSONObject
       , tags = None (List Text)
       , timeout = None Text
       , attempts = None Natural
       }
-
-in  PutStep
+    : Types.PutStep
