@@ -1,7 +1,7 @@
 let Types = ../types/package.dhall
 
 in    { name = "CHANGEME"
-      , oldName = None Text
+      , old_name = None Text
       , plan = [] : List Types.Step
       , serial = None Bool
       , build_log_retention = None Types.JobBuildLogRetention

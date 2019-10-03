@@ -1,7 +1,7 @@
 let Step = ./Step.dhall
 
 in  { name : Text
-    , oldName : Optional Text
+    , old_name : Optional Text
     , plan : List Step
     , serial : Optional Bool
     , build_log_retention :
