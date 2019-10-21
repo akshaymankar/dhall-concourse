@@ -1,2 +1,2 @@
-  https://prelude.dhall-lang.org/v10.0.0/package.dhall sha256:771c7131fc87e13eb18f770a27c59f9418879f7e230ba2a50e46f4461f43ec69
-? https://prelude.dhall-lang.org/v10.0.0/package.dhall
+  https://raw.githubusercontent.com/dhall-lang/dhall-lang/gabriel/fix_Prelude/Prelude/package.dhall sha256:02809dbab060b5997b10ca647db1aa802c88e67ee653998abc1d9a06ad00387c
+? https://raw.githubusercontent.com/dhall-lang/dhall-lang/gabriel/fix_Prelude/Prelude/package.dhall
