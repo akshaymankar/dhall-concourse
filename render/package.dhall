@@ -5,4 +5,5 @@
 , resources = ./resources.dhall
 , resourceType = ./resourceType.dhall
 , resourceTypes = ./resourceTypes.dhall
+, pipeline = ./pipeline.dhall
 }
