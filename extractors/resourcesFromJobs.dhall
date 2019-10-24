@@ -6,16 +6,7 @@ let Resource = Types.Resource
 
 let StepHooks = Types.StepHooks
 
-let catOptionals
-    : ∀(x : Type) → List (Optional x) → List x
-    =   λ(x : Type)
-      → λ(os : List (Optional x))
-      → Prelude.List.fold
-          (Optional x)
-          os
-          (List x)
-          (λ(a : Optional x) → λ(l : List x) → Prelude.Optional.toList x a # l)
-          ([] : List x)
+let catOptionals = ../utils/catOptionals.dhall
 
 let resourcesFromStepHooks
     : StepHooks (List Resource) → List Resource
@@ -51,6 +42,26 @@ let resourcesFromAggregateOrDo
       → λ(h : StepHooks (List Resource))
       → Prelude.List.concat Resource rs # resourcesFromStepHooks h
 
+let resourcesFromInParallelSteps =
+      λ(rs : List (List Resource)) → Prelude.List.concat Resource rs
+
+let resourcesFromInParallelConfig =
+        λ(config : Types.InParallelConfig (List Resource))
+      → Prelude.List.concat Resource config.steps
+
+let resourcesFromInParallel
+    :   Types.InParallelStep (List Resource)
+      → StepHooks (List Resource)
+      → List Resource
+    =   λ(step : Types.InParallelStep (List Resource))
+      → λ(h : StepHooks (List Resource))
+      →   merge
+            { Steps = resourcesFromInParallelSteps
+            , Config = resourcesFromInParallelConfig
+            }
+            step
+        # resourcesFromStepHooks h
+
 let resourcesFromTry
     : List Resource → StepHooks (List Resource) → List Resource
     =   λ(rs : List Resource)
@@ -61,12 +72,14 @@ let resourcesFromStep =
         λ(s : Types.Step)
       → s
           (List Resource)
-          resourcesFromGetStep
-          resourcesFromPutStep
-          resourcesFromTaskStep
-          resourcesFromAggregateOrDo
-          resourcesFromAggregateOrDo
-          resourcesFromTry
+          { get = resourcesFromGetStep
+          , put = resourcesFromPutStep
+          , task = resourcesFromTaskStep
+          , aggregate = resourcesFromAggregateOrDo
+          , do = resourcesFromAggregateOrDo
+          , try = resourcesFromTry
+          , in_parallel = resourcesFromInParallel
+          }
 
 let resourcesFromJob =
         λ(j : Types.Job)
