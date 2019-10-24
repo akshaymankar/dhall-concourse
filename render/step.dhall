@@ -1,140 +1,63 @@
-  λ(JSON : Type)
-→ λ(toJSON : ∀(Value : Type) → ∀(v : Value) → JSON)
-→ let Types = ../types/package.dhall
-  
-  let Prelude = ../lib/prelude.dhall
-  
-  let RenderedGet =
-        { get : Text
-        , resource : Optional Text
-        , params : Optional (List Types.TextTextPair)
-        , version : Optional Types.GetVersion
-        , passed : Optional (List Text)
-        , trigger : Optional Bool
-        , attempts : Optional Natural
-        , timeout : Optional Text
-        , tags : Optional (List Text)
-        }
-  
-  let RenderedPut =
-        { put : Text
-        , resource : Optional Text
-        , params : Optional (List Types.TextTextPair)
-        , get_params : Optional (List Types.TextTextPair)
-        , attempts : Optional Natural
-        , timeout : Optional Text
-        , tags : Optional (List Text)
-        }
-  
-  let calculateActionAndResource =
-          λ(get : Optional Text)
-        → λ(resource : Types.Resource)
-        → { action = Optional/fold Text get Text (λ(g : Text) → g) resource.name
-          , resource =
-              Optional/fold
-                Text
-                get
-                (Optional Text)
-                (λ(g : Text) → Some resource.name)
-                (None Text)
+let Types = ../types/package.dhall
+
+let Prelude = ../lib/prelude.dhall
+
+let JSON = Prelude.JSON
+
+let TextJSONPair = { mapKey : Text, mapValue : JSON.Type }
+
+let concatJSONs =
+        λ(xs : List Types.JSONObject)
+      → JSON.object (Prelude.List.concat TextJSONPair xs)
+
+let renderGet =
+        λ(get : Types.GetStep)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs [ ./getStep.dhall get, ./stepHooks.dhall hooks ]
+
+let renderPut =
+        λ(put : Types.PutStep)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs [ ./putStep.dhall put, ./stepHooks.dhall hooks ]
+
+let renderTask =
+        λ(task : Types.TaskStep)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs [ ./taskStep.dhall task, ./stepHooks.dhall hooks ]
+
+let renderAggregate =
+        λ(steps : List JSON.Type)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs
+          [ toMap { aggregate = JSON.array steps }, ./stepHooks.dhall hooks ]
+
+let renderDo =
+        λ(steps : List JSON.Type)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs [ toMap { do = JSON.array steps }, ./stepHooks.dhall hooks ]
+
+let renderTry =
+        λ(step : JSON.Type)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs [ toMap { try = step }, ./stepHooks.dhall hooks ]
+
+let renderInParallel =
+        λ(config : Types.InParallelStep JSON.Type)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs [ ./inParallelStep.dhall config, ./stepHooks.dhall hooks ]
+
+let render
+    : Types.Step → JSON.Type
+    =   λ(step : Types.Step)
+      → step
+          JSON.Type
+          { get = renderGet
+          , put = renderPut
+          , task = renderTask
+          , aggregate = renderAggregate
+          , do = renderDo
+          , try = renderTry
+          , in_parallel = renderInParallel
           }
-  
-  let renderGet
-      : Types.GetStep → Types.StepHooks JSON → JSON
-      =   λ(g : Types.GetStep)
-        → λ(h : Types.StepHooks JSON)
-        → let actionAndResource = calculateActionAndResource g.get g.resource
-          
-          in  toJSON
-                (RenderedGet ⩓ Types.StepHooks JSON)
-                (   g
-                  ⫽ { get = actionAndResource.action
-                    , resource = actionAndResource.resource
-                    }
-                  ⫽ h
-                )
-  
-  let renderPut
-      : Types.PutStep → Types.StepHooks JSON → JSON
-      =   λ(p : Types.PutStep)
-        → λ(h : Types.StepHooks JSON)
-        → let actionAndResource = calculateActionAndResource p.put p.resource
-          
-          in  toJSON
-                (RenderedPut ⩓ Types.StepHooks JSON)
-                (   p
-                  ⫽ { put = actionAndResource.action
-                    , resource = actionAndResource.resource
-                    }
-                  ⫽ h
-                )
-  
-  let RenderedTask =
-        { task : Text
-        , config : Optional Types.TaskConfig
-        , file : Optional Text
-        , privileged : Optional Bool
-        , params : Optional (List Types.TextTextPair)
-        , image : Optional Text
-        , input_mapping : Optional (List Types.TextTextPair)
-        , output_mapping : Optional (List Types.TextTextPair)
-        , attempts : Optional Natural
-        , timeout : Optional Text
-        , tags : Optional (List Text)
-        }
-  
-  let renderTaskConfig =
-        λ(c : Types.TaskConfig) → { config = Some c, file = None Text }
-  
-  let renderTaskFile =
-        λ(f : Text) → { config = None Types.TaskConfig, file = Some f }
-  
-  let renderTask
-      : Types.TaskStep → Types.StepHooks JSON → JSON
-      =   λ(t : Types.TaskStep)
-        → λ(h : Types.StepHooks JSON)
-        → toJSON
-            (RenderedTask ⩓ Types.StepHooks JSON)
-            (   t
-              ⫽ ( merge
-                    { Config = renderTaskConfig, File = renderTaskFile }
-                    t.config
-                )
-              ⫽ h
-            )
-  
-  let renderAggregate
-      : List JSON → Types.StepHooks JSON → JSON
-      =   λ(steps : List JSON)
-        → λ(h : Types.StepHooks JSON)
-        → toJSON
-            ({ aggregate : List JSON } ⩓ Types.StepHooks JSON)
-            ({ aggregate = steps } ⫽ h)
-  
-  let renderDo
-      : List JSON → Types.StepHooks JSON → JSON
-      =   λ(steps : List JSON)
-        → λ(h : Types.StepHooks JSON)
-        → toJSON
-            ({ do : List JSON } ⩓ Types.StepHooks JSON)
-            ({ do = steps } ⫽ h)
-  
-  let renderTry
-      : JSON → Types.StepHooks JSON → JSON
-      =   λ(step : JSON)
-        → λ(h : Types.StepHooks JSON)
-        → toJSON ({ try : JSON } ⩓ Types.StepHooks JSON) ({ try = step } ⫽ h)
-  
-  let renderStep
-      : Types.Step → JSON
-      =   λ(step : Types.Step)
-        → step
-            JSON
-            renderGet
-            renderPut
-            renderTask
-            renderAggregate
-            renderDo
-            renderTry
-  
-  in  renderStep
+
+in  render

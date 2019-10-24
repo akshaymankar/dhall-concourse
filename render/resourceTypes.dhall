@@ -2,33 +2,34 @@ let Prelude = ../lib/prelude.dhall
 
 let Types = ../types/package.dhall
 
-let RenderedResource =
-      { name : Text, type : Text, source : Optional ../types/JSONObject.dhall }
+let JSON = Prelude.JSON
 
-let renderCustomResourceType = λ(x : Types.CustomResourceType) → Some x
+let catOptionals
+    : ∀(T : Type) → List (Optional T) → List T
+    =   λ(T : Type)
+      → λ(ts : List (Optional T))
+      → List/fold
+          (Optional T)
+          ts
+          (List T)
+          (   λ(t : Optional T)
+            → λ(acc : List T)
+            → Prelude.List.concat T [ Prelude.Optional.toList T t, acc ]
+          )
+          ([] : List T)
 
-let renderInBuiltResourceType = λ(x : Text) → None RenderedResource
+let catOptionalJSONs =
+      λ(js : List (Optional JSON.Type)) → JSON.array (catOptionals JSON.Type js)
 
-let renderResourceType
-    : Types.ResourceType → List RenderedResource
-    =   λ(resourceType : Types.ResourceType)
-      → Prelude.Optional.toList
-          RenderedResource
-          ( merge
-              { InBuilt = renderInBuiltResourceType
-              , Custom = renderCustomResourceType
-              }
-              resourceType
+let render
+    : List Types.ResourceType → JSON.Type
+    =   λ(rs : List Types.ResourceType)
+      → catOptionalJSONs
+          ( Prelude.List.map
+              Types.ResourceType
+              (Optional JSON.Type)
+              ./resourceType.dhall
+              rs
           )
 
-let renderResourceTypes =
-        λ(resourceTypes : List Types.ResourceType)
-      → { resource_types =
-            Prelude.List.concatMap
-              Types.ResourceType
-              RenderedResource
-              renderResourceType
-              resourceTypes
-        }
-
-in  renderResourceTypes
+in  render

@@ -2,4 +2,5 @@
 , defaults = ./defaults/package.dhall
 , schemas = ./schemas/package.dhall
 , helpers = ./helpers/package.dhall
+, render = ./render/package.dhall
 }

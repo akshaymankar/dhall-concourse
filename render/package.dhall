@@ -1,9 +1,8 @@
-  λ(JSON : Type)
-→ λ(toJSON : ∀(T : Type) → ∀(t : T) → JSON)
-→ { job = ./job.dhall JSON toJSON
-  , jobs = ./jobs.dhall JSON toJSON
-  , step = ./step.dhall JSON toJSON
-  , steps = ./steps.dhall JSON toJSON
-  , resources = ../render/resources.dhall
-  , resourceTypes = ../render/resourceTypes.dhall
-  }
+{ job = ./job.dhall
+, jobs = ./jobs.dhall
+, step = ./step.dhall
+, resource = ./resource.dhall
+, resources = ./resources.dhall
+, resourceType = ./resourceType.dhall
+, resourceTypes = ./resourceTypes.dhall
+}
