@@ -5,7 +5,7 @@ Dhall Concourse provides Dhall bindings for Concourse, so you can generate conco
 
 ## Why do I need this?
 
-There are a lot of issues one could face while building any non-trivial pipeline. Few them could be:
+There are a lot of issues one could face while building any non-trivial pipeline. Few of them could be:
 1. Pipeline yaml becomes very big and unmanageable
 2. Same set of jobs are required to be run in different environments
 3. Same set of hooks but with slight changes in all jobs. E.g. slack notifications, releasing resources on failure, etc.
