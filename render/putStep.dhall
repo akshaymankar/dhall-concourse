@@ -8,7 +8,7 @@ let render
     : Types.PutStep → Types.JSONObject
     =   λ(p : Types.PutStep)
       → toMap
-          { get = nameResource.getName p.put p.resource
+          { put = nameResource.getName p.put p.resource
           , resource = nameResource.getResource p.put p.resource
           , inputs = RenderOptional.lists.text p.inputs
           , params = RenderOptional.jsonObject p.params
