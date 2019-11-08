@@ -83,7 +83,12 @@ let resourcesFromStep =
 
 let resourcesFromJob =
         λ(j : Types.Job)
-      → Prelude.List.concatMap Types.Step Resource resourcesFromStep j.plan
+      → let hookSteps =
+              catOptionals
+                Types.Step
+                [ j.on_abort, j.on_failure, j.on_success, j.ensure ]
+        
+        in  Prelude.List.concatMap Types.Step Resource resourcesFromStep (j.plan # hookSteps)
 
 in    Prelude.List.concatMap Types.Job Resource resourcesFromJob
     : List Types.Job → List Resource
