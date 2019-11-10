@@ -20,7 +20,32 @@ For a Dhall Tutorial, see the [readme of the project](https://github.com/dhall-l
 
 ## Usage
 
+### Using dhall-fly
+
 To use dhall-concourse you need to install [dhall-fly](https://github.com/akshaymankar/dhall-fly#installation).
+
+### Using dhall-to-json and jq (Experimental)
+
+To use native rendering to render a list of jobs in a file called `jobs.dhall`, you'd have to write a dhall expression like this:
+
+```dhall
+let Concourse = 
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.3.0/package.dhall
+
+let jobs = ./jobs.dhall
+
+in Concourse.render.pipeline jobs
+```
+
+Now you can render this using dhall-to-json and jq like this:
+
+```bash
+dhall-to-json <<< './pipeline.dhall' \
+  | jq '.resources = (.resources|unique)' \
+  | jq '.resource_types = (.resource_types|unique)'
+```
+
+
 
 ## Defining a pipeline
 
@@ -30,7 +55,7 @@ This dhall expression will create a pipeline with one job, which would have one 
 
 ```dhall
 let Concourse =
-      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.2.1/package.dhall sha256:afc1f4a27ac5a1f4746065ee2e318041698cc9bb57096aa4f0d4d665f44a6ef2
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.3.0/package.dhall
 
 let Prelude =
       https://prelude.dhall-lang.org/v11.1.0/package.dhall sha256:99462c205117931c0919f155a6046aec140c70fb8876d208c7c77027ab19c2fa
