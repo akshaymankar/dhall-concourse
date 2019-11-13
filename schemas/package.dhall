@@ -22,6 +22,12 @@
 , TaskConfig =
       ./TaskConfig.dhall sha256:213f658b01cb466c1efe2913650aa38ec77b597cf0b29b3a618c3634e85f2668
     ? ./TaskConfig.dhall
+, TaskInput =
+      ./TaskInput.dhall sha256:754c52fb8a8e6bb1b06fc764685643820f843ad4bb9ba79b06e6bbdbcec8b205
+    ? ./TaskInput.dhall
+, TaskOutput =
+      ./TaskOutput.dhall sha256:f973b27504cbd54edcf13306aa4136aa649fdcc201aac9d98b4e49cd125eb699
+    ? ./TaskOutput.dhall
 , TaskRunConfig =
       ./TaskRunConfig.dhall sha256:c16773b847e2cddc096c711ac84c5a8a64ac1033f0fe8ec41d291f6d79ddab26
     ? ./TaskRunConfig.dhall
