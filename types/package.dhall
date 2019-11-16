@@ -70,4 +70,7 @@
 , TextTextPair =
       ./TextTextPair.dhall sha256:641845344ce6be001271e0052808b6c8ca10ce5939efefea3560c68c37538454
     ? ./TextTextPair.dhall
+, GroupedJob =
+      ./GroupedJob.dhall sha256:85073c70ee204dc1be2fc6eae2639315b17f8737a36dc649677d137e4c583678
+    ? ./GroupedJob.dhall
 }

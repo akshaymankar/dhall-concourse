@@ -1,5 +1,5 @@
 { Types =
-      ./types/package.dhall sha256:18b86be0e557cde964905dbbf42f16e89260a2113f66cac9c3039764c86afa7a
+      ./types/package.dhall sha256:4576b3998000a9e15b5e569913a36dcdee8607470d94e6b37f6d12e725588e51
     ? ./types/package.dhall
 , defaults =
       ./defaults/package.dhall sha256:f4cc4d0a87f5a474de645f4ec8320aa055fa391d2a97696acba2814b8f594eb8
@@ -11,7 +11,7 @@
       ./helpers/package.dhall sha256:94d9aab795fe7049da8c7904d6faa7c7be60ed10a59565c33d7cf9d026a6968d
     ? ./helpers/package.dhall
 , render =
-      ./render/package.dhall sha256:b10f699b4b7506f916957d6c2103452b25fc13690c8c5352d327e89962a15e2d
+      ./render/package.dhall sha256:9817b38973cc0354670cbd0419ca79b19e6999d7d24ed92bb5b41dd60245f750
     ? ./render/package.dhall
 , extractors =
       ./extractors/package.dhall sha256:761aabbb030ca0fca473273e7c8b45c29dcd848388bdb767db7322a1243a5dd6
