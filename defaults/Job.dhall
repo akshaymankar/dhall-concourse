@@ -1,8 +1,6 @@
 let Types = ../types/package.dhall
 
-in    { name = "CHANGEME"
-      , old_name = None Text
-      , plan = [] : List Types.Step
+in    { old_name = None Text
       , serial = None Bool
       , build_log_retention = None Types.JobBuildLogRetention
       , build_logs_to_retain = None Natural
@@ -16,4 +14,3 @@ in    { name = "CHANGEME"
       , on_abort = None Types.Step
       , ensure = None Types.Step
       }
-    : Types.Job
