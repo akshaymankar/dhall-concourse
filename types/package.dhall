@@ -1,7 +1,4 @@
-{ BasicStep =
-      ./BasicStep.dhall sha256:b7d5d8006ad9502fb91a549fae3a47c02fd19bf1c8450fb10a9d92d02b95b802
-    ? ./BasicStep.dhall
-, CustomResourceType =
+{ CustomResourceType =
       ./CustomResourceType.dhall sha256:38b2589726851995ee62762de23344cd5eefad1541643835456564e1d03cc7d1
     ? ./CustomResourceType.dhall
 , GetStep =

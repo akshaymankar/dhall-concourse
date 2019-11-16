@@ -1,5 +1,5 @@
 { Types =
-      ./types/package.dhall sha256:86f475219ce8e4e404223e38adc1d6be83bbbe201e92e2b19f942a13f8ca1a08
+      ./types/package.dhall sha256:18b86be0e557cde964905dbbf42f16e89260a2113f66cac9c3039764c86afa7a
     ? ./types/package.dhall
 , defaults =
       ./defaults/package.dhall sha256:f4cc4d0a87f5a474de645f4ec8320aa055fa391d2a97696acba2814b8f594eb8
