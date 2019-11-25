@@ -45,8 +45,6 @@ dhall-to-json <<< './pipeline.dhall' \
   | jq '.resource_types = (.resource_types|unique)'
 ```
 
-
-
 ## Defining a pipeline
 
 ### Example 1: Hello World
@@ -55,7 +53,7 @@ This dhall expression will create a pipeline with one job, which would have one 
 
 ```dhall
 let Concourse =
-      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.3.0/package.dhall
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.5.0/package.dhall
 
 let Prelude =
       https://prelude.dhall-lang.org/v11.1.0/package.dhall sha256:99462c205117931c0919f155a6046aec140c70fb8876d208c7c77027ab19c2fa
@@ -93,10 +91,29 @@ in  [ job ]
 To set the pipeline, run this command:
 
 ```
-fly -t <TARGET> set-pipeline -p hello-dhall -c <(dhall-fly <pipeline.dhall)
+fly -t <TARGET> set-pipeline -p hello-dhall -c <(dhall-fly <example1.dhall)
 ```
 
-### Example 2 (Real World™️)
+### Example 2 (Hello World with groups)
+
+```dhall
+let Concourse =
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.5.0/package.dhall
+
+let Prelude =
+      https://prelude.dhall-lang.org/v11.1.0/package.dhall sha256:99462c205117931c0919f155a6046aec140c70fb8876d208c7c77027ab19c2fa
+
+-- Assuming above file is here
+let jobs = ./example1.dhall
+
+in  Prelude.List.map
+      Concourse.Types.Job
+      Concourse.Types.GroupedJob
+      (λ(j : Concourse.Types.Job) → { job = j, groups = [ "hello-world" ] })
+      jobs
+```
+
+### Example 3 (Real World™)
 
 
 We in the Eirini team were facing issues with templating our pipeline YAMLs. Recently, we started converting our spruce/aviator based yaml templating into dhall. The work in progress can be seen in [our CI repo](https://github.com/cloudfoundry-incubator/eirini-ci/blob/47d2f229e33d9fcdb5641cec06fa68a0d82c0bff/pipelines/ci/pipeline.dhall).
