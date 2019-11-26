@@ -11,7 +11,7 @@
       ./helpers/package.dhall sha256:94d9aab795fe7049da8c7904d6faa7c7be60ed10a59565c33d7cf9d026a6968d
     ? ./helpers/package.dhall
 , render =
-      ./render/package.dhall sha256:9817b38973cc0354670cbd0419ca79b19e6999d7d24ed92bb5b41dd60245f750
+      ./render/package.dhall sha256:380eab61bcc75473589242aa13011d0912f0634745f84c185296594c557bacb7
     ? ./render/package.dhall
 , extractors =
       ./extractors/package.dhall sha256:761aabbb030ca0fca473273e7c8b45c29dcd848388bdb767db7322a1243a5dd6

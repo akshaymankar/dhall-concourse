@@ -26,11 +26,13 @@ To use dhall-concourse you need to install [dhall-fly](https://github.com/akshay
 
 ### Using dhall-to-json and jq (Experimental)
 
+#### Jobs without Groups
+
 To use native rendering to render a list of jobs in a file called `jobs.dhall`, you'd have to write a dhall expression like this:
 
 ```dhall
 let Concourse = 
-      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.3.0/package.dhall
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.5.0/package.dhall
 
 let jobs = ./jobs.dhall
 
@@ -43,6 +45,28 @@ Now you can render this using dhall-to-json and jq like this:
 dhall-to-json <<< './pipeline.dhall' \
   | jq '.resources = (.resources|unique)' \
   | jq '.resource_types = (.resource_types|unique)'
+```
+
+#### Jobs with groups
+
+Similarly, to render a list of `GroupedJob`s in a filed called `grouped-jobs.dhall`, this would be the expression to render:
+
+```dhall
+let Concourse = 
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.5.0/package.dhall
+
+let groupedJobs = ./grouped-jobs.dhall
+
+in Concourse.render.groupedJobs groupedJobs
+```
+
+Now you can render this using dhall-to-json and jq like this:
+
+```bash
+dhall-to-json <<< './pipeline.dhall' \
+  | jq '.resources = (.resources|unique)' \
+  | jq '.resource_types = (.resource_types|unique)' \
+  | jq '.groups = (.groups | group_by(.name) | map({name: .[0].name, jobs: (map(.jobs) | flatten) }))'
 ```
 
 ## Defining a pipeline

@@ -23,6 +23,6 @@
       ./pipeline.dhall sha256:d66fb1637db9cf4680213b2b6939a5d5cff64b2f4e5d4e24444d49d40f92853e
     ? ./pipeline.dhall
 , groupedJobs =
-      ./groupedJobs.dhall sha256:807ef57f86ae37a22f7099a23c684ab45c59034c9dacfcd467b9b623e649ed6b
+      ./groupedJobs.dhall sha256:9d56b1f88ec737fa02cd8eddc5fa239fd89cb6c509130ea83295899c2ac49c26
     ? ./groupedJobs.dhall
 }

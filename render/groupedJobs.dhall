@@ -9,17 +9,21 @@ in    λ(groupedJobs : List Types.GroupedJob)
               Types.Job
               (λ(groupedJob : Types.GroupedJob) → groupedJob.job)
               groupedJobs
-      
-      let jobGroups =
-            Prelude.List.map
+
+      let RenderedGroup = { name : Text, jobs : List Text }
+
+      let jobGroups
+          : List RenderedGroup
+          = Prelude.List.concatMap
               Types.GroupedJob
-              (Prelude.Map.Entry Text (List Text))
+              RenderedGroup
               (   λ(groupedJob : Types.GroupedJob)
-                → Prelude.Map.keyValue
-                    (List Text)
-                    groupedJob.job.name
+                → Prelude.List.map
+                    Text
+                    RenderedGroup
+                    (λ(g : Text) → { name = g, jobs = [ groupedJob.job.name ] })
                     groupedJob.groups
               )
               groupedJobs
-      
-      in  ./pipeline.dhall jobs ⫽ { jobGroups = jobGroups }
+
+      in  ./pipeline.dhall jobs ⫽ { groups = jobGroups }
