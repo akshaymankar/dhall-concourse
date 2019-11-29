@@ -1,0 +1,158 @@
+#+TITLE: Dhall Concourse Tutorial
+#+AUTHOR: Akshay Mankar
+#+LANGUAGE: en
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="local.css"/>
+* Getting Started
+** Installation
+*** MacOS
+     #+begin_src 
+     brew install akshaymankar/tap/dhall-fly
+     brew install dhall
+     brew install dhall-json
+     #+end_src
+** Dhall
+[[https://dhall-lang.org/][Dhall]] is a configuration language which focuses on maintainability of configs.
+This tutorial will explain how to define [[https://concourse-ci.org/][concourse]] pipelines in dhall. We'll
+start with a quick tutorial of dhall, but you can learn more about it on the
+[[https://dhall-lang.org/][official dhall website]].
+*** Hello World
+As convention dictates, the first thing you must do in a langauge is to write
+code that prints ~Hello World!~. But, as dhall is a configuration language, it
+does not allow to ~print~ anything. All you can do is write _expressions_ that
+represent something. Here is an expression which represents ~Hello World!~.
+#+begin_src dhall
+"Hello World!"
+#+end_src
+You can now pass this to the dhall binary to see it thrown right back at you:
+#+begin_src
+$ dhall <<< '"Hello World!"'
+"Hello World!"
+#+end_src
+You can choose to write this expression in a file (say hello-world.dhall) and
+call it like this:
+#+begin_src
+$ dhall --file hello-world.dhall
+"Hello World!"
+#+end_src
+You can also ask dhall what is the type of the expression in the file:
+#+begin_src
+$ dhall type --file hello-world.dhall
+Text
+#+end_src
+*** Lists
+If you want to say hello to Alka, Bilal and Chandu you can say it like this:
+#+begin_src dhall
+  [ "Hello Alka!", "HEllo Bilal!", "Hello Chandu!" ]
+#+end_src
+*** Variables
+As you might have noticed (possibly with mild annoyance), there is a typo in the
+example above. It is definitely annoying to have to type ~Hello~ again and again
+and have nothing notify us of mistakes. Luckily for us, dhall supports variables:
+#+begin_src dhall
+  let greeting = "Hello"
+
+  in [ greeting ++ " Alka!", greeting ++ " Bilal!", greeting ++ " Chandu!" ]
+#+end_src
+Here ~++~ is an inbuilt operator in dhall which allows us to append ~Text~.
+
+When we execute this, we get the correct version of our greetings!
+#+begin_src dhall
+  [ "Hello Alka!", "Hello Bilal!", "Hello Chandu!" ]
+#+end_src
+*** Type Assertions
+In our examples, the list of greetings is in fact a list of ~Text~, which can be
+asserted like this:
+#+begin_src dhall
+[ "Hello Alka!", "Hello Bilal!", "Hello Chandu!" ] : List Text
+#+end_src
+*** Interpolation
+Instead of using ~++~ you can also interpolate strings:
+#+begin_src dhall
+  let greeting = "Hello"
+
+  in [ "${greeting} Alka!", "${greeting} Bilal!", "${greeting} Chandu!" ]
+#+end_src
+*** Functions
+You can define functions, too:
+#+begin_src dhall
+  let greet = \(name: Text) -> "Hello ${name}!"
+
+  in [ greet "Alka", greet "Bilal", greet "Chandu" ]
+#+end_src
+You can also use ~λ~ and ~→~, instead of ~\~ and ~->~, to define functions. The
+~dhall format~ command can automatically replace these for you. So, the above
+code would end up looking like this:
+#+begin_src dhall
+  let greet = λ(name : Text) → "Hello ${name}!"
+
+  in  [ greet "Alka", greet "Bilal", greet "Chandu" ]
+#+end_src
+*** Imports
+You can import expressions defined in different files and use them. To import
+files, you just have to specify their _relative_ path. It is not
+possible to import files using absolute paths.
+
+For instance, if you wanted to have two separate expressions use the ~greet~
+function, it could look like this:
+#+begin_src dhall
+-- greet.dhall
+λ(name : Text) → "Hello ${name}!"
+#+end_src
+
+#+begin_src  dhall
+-- greet-alka-bilal-chandu.dhall
+[ ./greet.dhall "Alka", ./greet.dhall "Bilal", ./greet.dhall "Chandu" ]
+#+end_src
+
+#+begin_src  dhall
+-- greet-disha-farida-george.dhall
+[ ./greet.dhall "Disha", ./greet.dhall "Farida", ./greet.dhall "George" ]
+#+end_src
+
+It is also possible to import expressions over HTTP/HTTPS:
+#+begin_src dhall
+  let greet = https://gist.githubusercontent.com/akshaymankar/88f3a545394bf76777f61c3c269f6b32/raw/greet.dhall
+
+  in  [ greet "Alka", greet "Bilal", greet "Chandu" ]
+#+end_src
+
+You can _freeze_ imports in a file using ~dhall freeze --inplace file.dhall~.
+Freezing ensures that a dhall file doesn't compile in case an import has
+changed. The file would look like this after being frozen:
+
+#+begin_src dhall
+let greet =
+      https://gist.githubusercontent.com/akshaymankar/88f3a545394bf76777f61c3c269f6b32/raw/greet.dhall sha256:fac37b0979eab016b33a8dfe1b41cfef6386713b4fcaacba9e2cdcc5137f5eeb
+
+in  [ greet "Alka", greet "Bilal", greet "Chandu" ]
+#+end_src
+
+Importing code from the internet and running only raises security questions. To
+know more about safety guarantees provided by dhall, please refer to [[https://github.com/dhall-lang/dhall-lang/wiki/Safety-guarantees][this
+discussion]].
+*** Prelude
+Prelude is the "standard library" of dhall. You can explore the types and
+functions it provides at https://prelude.dhall-lang.org/. Here is an example of
+using ~map~ to create our list of greetings:
+#+begin_src dhall
+  let Prelude = https://prelude.dhall-lang.org/package.dhall
+    
+  let greet = λ(name : Text) → "Hello ${name}!"
+
+  in  Prelude.List.map Text Text greet [ "Alka", "Bilal", "Chandu" ]
+#+end_src
+
+Here ~Prelude.List.map~ expects 4 parameters
+1. The type of the input list. As our input is going to be a list of names, this
+   is ~Text~.
+1. The type of the output list. As our output is going to be a list of
+   greetings, this is also ~Text~.
+1. A function which maps an element of the input list to one in the output list.
+1. And finally, the input list.
+
+When we run this, we get the expected list of greetings:
+#+begin_src dhall
+[ "Hello Alka!", "Hello Bilal!", "Hello Chandu!" ]
+#+end_src
+*** Records
+
