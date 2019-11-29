@@ -137,6 +137,11 @@ in  Prelude.List.map
       jobs
 ```
 
+To notify `dhall-fly` that we'd be passing it a `List Concourse.Types.GroupedJob` instead of `List Concourse.Types.Job`, we have to call it with `--pipeline-type grouped-jobs` like this:
+```
+fly -t <TARGET> set-pipeline -p hello-dhall -c <(dhall-fly --pipeline-type grouped-jobs <example1.dhall)
+```
+
 ### Example 3 (Real World™)
 
 
