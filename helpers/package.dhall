@@ -22,4 +22,25 @@
 , tryStep =
       ./tryStep.dhall sha256:29da9af3ac4f2a0eb01e606f74f26955f2026b37dac45e6d94bb8b3c63d56973
     ? ./tryStep.dhall
+, getWithHooks =
+      ./getWithHooks.dhall sha256:6377b5f418be65a327dfd534447b5407224e83920cf0bc9e51993ad5716f2bbc
+    ? ./getWithHooks.dhall
+, putWithHooks =
+      ./putWithHooks.dhall sha256:6e6a8fb0efab92daa34c3181ff58ca8710a1ebab7c8e4031158ca86788bfafdf
+    ? ./putWithHooks.dhall
+, taskWithHooks =
+      ./taskWithHooks.dhall sha256:bf644425ed58b4284a52c64cc8b7e7c518fe1cfc53bf0b6bf02b9504e42994e1
+    ? ./taskWithHooks.dhall
+, inParallelWithHooks =
+      ./inParallelWithHooks.dhall sha256:135ba901c508c01049b61e1eb9d5d2e24651f83d6a6d253d7db7e77b851f4ef0
+    ? ./inParallelWithHooks.dhall
+, aggregateWithHooks =
+      ./aggregateWithHooks.dhall sha256:643c580f6cc4c543f017cf8c833626d76d8bed7e9b30b9e626a0ae7107337074
+    ? ./aggregateWithHooks.dhall
+, doWithHooks =
+      ./doWithHooks.dhall sha256:b708423223579f16191c0d2d23be72cc2ccb083b676d695c62b74d7b9c675841
+    ? ./doWithHooks.dhall
+, tryWithHooks =
+      ./tryWithHooks.dhall sha256:8e53c7c7d7f95942392162bb15b8f5ac6d3e242966b0c9ef6ff16f2a0953f3e6
+    ? ./tryWithHooks.dhall
 }

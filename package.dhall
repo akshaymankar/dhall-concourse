@@ -8,7 +8,7 @@
       ./schemas/package.dhall sha256:6a1466287aa08d3911f9b07357079dfb58740747d66510367ad17290be695e6f
     ? ./schemas/package.dhall
 , helpers =
-      ./helpers/package.dhall sha256:94d9aab795fe7049da8c7904d6faa7c7be60ed10a59565c33d7cf9d026a6968d
+      ./helpers/package.dhall sha256:080889a3227bb0edd8d97dadff81da61e3852be82aad889487ba664a8732e87b
     ? ./helpers/package.dhall
 , render =
       ./render/package.dhall sha256:380eab61bcc75473589242aa13011d0912f0634745f84c185296594c557bacb7
