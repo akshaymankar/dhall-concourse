@@ -174,4 +174,4 @@ in  ∀(Step : Type) → StepConstructors Step → Step
 
 The way I read it is, a Step is defined for any type for which one can provide constructors for get, put, task, aggregate, etc.
 
-This is the reason this repository includes helpers to construct simple steps without any hooks. I will soon be adding helpers for constructing steps with hooks and to add hooks to steps after they've been constructed.
+This is the reason this repository includes helpers to construct steps with or without helpers.
