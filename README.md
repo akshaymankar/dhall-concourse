@@ -142,7 +142,7 @@ The Cloudfoundry Eirini team was facing issues with templating their pipeline YA
 
 ## Why are Steps so complicated?
 
-In concourse, a step can be one of `get`, `put`, `task`, `in_parallel`, `aggregate`, `do` or `try`. The `in_parallel` and `aggregate` are list of steps, `do` and `try` represent one step. This makes definition of the `Step` type recursive, as in to define a `Step` we'd already need definition of a Step. In total languages like dhall, this is a little tricky to do. There is an explanation in [dhall docs about how to do this](https://docs.dhall-lang.org/howtos/How-to-translate-recursive-code-to-Dhall.html). An example of this can be found in dhall prelude's definition of the [JSON Type](https://github.com/dhall-lang/dhall-lang/blob/master/Prelude/JSON/Type)
+In concourse, a step can be one of `get`, `put`, `task`, `in_parallel`, `aggregate`, `do` or `try`. The `in_parallel`, `do` and `aggregate` are list of steps, `try` represents one step. This makes definition of the `Step` type recursive, as in to define a `Step` we'd already need definition of a Step. In total languages like dhall, this is a little tricky to do. There is an explanation in [dhall docs about how to do this](https://docs.dhall-lang.org/howtos/How-to-translate-recursive-code-to-Dhall.html). An example of this can be found in dhall prelude's definition of the [JSON Type](https://github.com/dhall-lang/dhall-lang/blob/master/Prelude/JSON/Type)
 
 **But there is more!**: Each step can also have 4 types of `hooks`: `on_failure`, `on_success`, `on_abort` and `ensure`. Each of these is optional and you guessed it, is of type Step.
 
