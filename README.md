@@ -1,9 +1,7 @@
 # Dhall Concourse
 Concourse types and helpers in dhall.
 
-**Note:** A lot of this README is inspired (some of it copied) from the [dhall-kubernetes README](https://github.com/dhall-lang/dhall-kubernetes/blob/master/README.md), so thanks to the authors!
-
-Dhall Concourse provides Dhall bindings for Concourse, so you can generate concourse pipelines from Dhall expressions. This will let you easily typecheck, template and modularize your Concourse pipelines.
+Dhall Concourse provides Dhall bindings for Concourse, so you can generate concourse pipelines from Dhall expressions. This lets the pipelines be easily typechecked, templated and modularized.
 
 ## Why do I need this?
 
@@ -12,19 +10,15 @@ There are a lot of issues one could face while building any non-trivial pipeline
 2. Same set of jobs are required to be run in different environments
 3. Same set of hooks but with slight changes in all jobs. E.g. slack notifications, releasing resources on failure, etc.
 
-Most common way to deal with these have been to use a templating language like erb, but it gets very messy very fast. We can do a lot better.
-
-Dhall solves all of this, being a programming language with builtin templating, all while being non-Turing complete, strongly typed and [strongly normalizing](https://en.wikipedia.org/wiki/Normalization_property_(abstract_rewriting)) (i.e.: reduces everything to a normal form, no matter how much abstraction you build), so saving you from the _"oh-noes-I-made-my-config-in-code-and-now-its-too-abstract"_ nightmare.
-
-For a Dhall Tutorial, see the [readme of the project](https://github.com/dhall-lang/dhall-lang), or the [full tutorial](http://hackage.haskell.org/package/dhall-1.17.0/docs/Dhall-Tutorial.html).
+Most common ways to deal with these have been to use a templating language like erb or tools like spruce. But this gets very messy very fast. We can do a lot better with a typed total language. I'll let [dhall speak for itself](https://dhall-lang.org/).
 
 ## Usage
 
 ### Using dhall-fly
 
-To use dhall-concourse you need to install [dhall-fly](https://github.com/akshaymankar/dhall-fly#installation).
+One way to translate pipelines written in dhall-concourse into yaml is using [dhall-fly](https://github.com/akshaymankar/dhall-fly#installation).
 
-### Using dhall-to-json and jq (Experimental)
+### Using dhall-to-json and jq
 
 #### Jobs without Groups
 
@@ -144,5 +138,40 @@ fly -t <TARGET> set-pipeline -p hello-dhall -c <(dhall-fly --pipeline-type group
 
 ### Example 3 (Real World™)
 
+The Cloudfoundry Eirini team was facing issues with templating their pipeline YAMLs. They started converting their spruce/aviator based yaml templating into dhall. The work in progress can be seen in [their CI repo](https://github.com/cloudfoundry-incubator/eirini-ci/blob/47d2f229e33d9fcdb5641cec06fa68a0d82c0bff/pipelines/ci/pipeline.dhall).
 
-We in the Eirini team were facing issues with templating our pipeline YAMLs. Recently, we started converting our spruce/aviator based yaml templating into dhall. The work in progress can be seen in [our CI repo](https://github.com/cloudfoundry-incubator/eirini-ci/blob/47d2f229e33d9fcdb5641cec06fa68a0d82c0bff/pipelines/ci/pipeline.dhall).
+## Why are Steps so complicated?
+
+In concourse, a step can be one of `get`, `put`, `task`, `in_parallel`, `aggregate`, `do` or `try`. The `in_parallel` and `aggregate` are list of steps, `do` and `try` represent one step. This makes definition of the `Step` type recursive, as in to define a `Step` we'd already need definition of a Step. In total languages like dhall, this is a little tricky to do. There is an explanation in [dhall docs about how to do this](https://docs.dhall-lang.org/howtos/How-to-translate-recursive-code-to-Dhall.html). An example of this can be found in dhall prelude's definition of the [JSON Type](https://github.com/dhall-lang/dhall-lang/blob/master/Prelude/JSON/Type)
+
+**But there is more!**: Each step can also have 4 types of `hooks`: `on_failure`, `on_success`, `on_abort` and `ensure`. Each of these is optional and you guessed it, is of type Step.
+
+So, I decided the type definition for `Step` would look like this:
+
+```dhall
+let StepHooks =
+        λ(Step : Type)
+      → { on_failure : Optional Step
+        , on_success : Optional Step
+        , on_abort : Optional Step
+        , ensure : Optional Step
+        }
+
+let StepConstructors =
+        λ(Step : Type)
+      → { get : ./GetStep.dhall → StepHooks Step → Step
+        , put : ./PutStep.dhall → StepHooks Step → Step
+        , task : ./TaskStep.dhall → StepHooks Step → Step
+        , aggregate : List Step → StepHooks Step → Step
+        , in_parallel : ./InParallelStep.dhall → StepHooks Step → Step
+        , do : Step → StepHooks Step → Step
+        , try : Step → StepHooks Step → Step
+        }
+
+in  ∀(Step : Type) → StepConstructors Step → Step
+
+```
+
+The way I read it is, a Step is defined for any type for which one can provide constructors for get, put, task, aggregate, etc.
+
+This is the reason this repository includes helpers to construct simple steps without any hooks. I will soon be adding helpers for constructing steps with hooks and to add hooks to steps after they've been constructed.
