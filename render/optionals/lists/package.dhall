@@ -1,11 +1,11 @@
 let Prelude =
-        ../../../lib/prelude.dhall sha256:99462c205117931c0919f155a6046aec140c70fb8876d208c7c77027ab19c2fa
+        ../../../lib/prelude.dhall sha256:4aa8581954f7734d09b7b21fddbf5d8df901a44b54b4ef26ea71db92de0b1a12
       ? ../../../lib/prelude.dhall
 
 let JSON = Prelude.JSON
 
 let generic =
-        ./generic.dhall sha256:e6fe28f437ac7fc2b574381ac2935273e923643d22947ddba14d941d9879955c
+        ./generic.dhall sha256:3be094cbf1079f18bb0ee0fe8421fd19c6b3f3fdc9283c3c83345059694f92d8
       ? ./generic.dhall
 
 in  { generic = generic, text = generic Text JSON.string }

@@ -1,30 +1,29 @@
 let generic =
-        ./generic.dhall sha256:e87b80b1ddea0190e04f34886ec715b8248fdfd87d0f52b2d98c9db8c9bfa58e
+        ./generic.dhall sha256:f0bf057dec1bcaa47a86182b37add42c18e7ac38efd7f777e202df0997cc0903
       ? ./generic.dhall
 
 let Prelude =
-        ../../lib/prelude.dhall sha256:99462c205117931c0919f155a6046aec140c70fb8876d208c7c77027ab19c2fa
+        ../../lib/prelude.dhall sha256:4aa8581954f7734d09b7b21fddbf5d8df901a44b54b4ef26ea71db92de0b1a12
       ? ../../lib/prelude.dhall
 
 let JSON = Prelude.JSON
 
-in  { generic =
-        generic
+in  { generic = generic
     , bool = generic Bool JSON.bool
     , jsonObject =
-          ./json-object.dhall sha256:a716dcfe232f9281dba641ec8667f649cd66ecfb49adc0d606f2c141b6806a7b
+          ./json-object.dhall sha256:c9530c776a00fef501f37aea4c117aa27073bfcdfe5c044f9377f93b88c002fa
         ? ./json-object.dhall
     , text = generic Text JSON.string
     , natural =
-          ./natural.dhall sha256:d905b04cbe71416d5792ce04f107e7ceadebb5ff6bb3170bebd2766cc3783e5a
+          ./natural.dhall sha256:94a91a6a10a0b55015168627142877815bb829f04c035d3b8826f86a93fa6013
         ? ./natural.dhall
     , lists =
-          ./lists/package.dhall sha256:ea18f4a4c82d3876a94db607d4afdc86342cace7368401c8911c0e3cb2ffc4b7
+          ./lists/package.dhall sha256:2ace5884bab544aeb6e1030decd9e0eb29254641d3fee63a65cbb3255b0d0baa
         ? ./lists/package.dhall
     , textTextMap =
-          ./text-text-map.dhall sha256:ee10a9fce1cf002a2ee6c6ca395e274d7e877ee7365646d927c8bb9f6181249b
+          ./text-text-map.dhall sha256:db2fed5b6db90cfa183753955db4b0ca66896475c481efe2a453c3eeec337d61
         ? ./text-text-map.dhall
     , textOptionalJSONMap =
-          ./text-optional-json-map.dhall sha256:537bb2f57868dd144aa4c8b68de775557d235b87af4b03b40b8d9ce02f7d2a3b
+          ./text-optional-json-map.dhall sha256:05db15bd5a5aba05e555cbd7fae501804857d77d48e3368e0999e1ff90ba1a04
         ? ./text-optional-json-map.dhall
     }

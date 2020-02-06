@@ -1,19 +1,19 @@
 { Types =
-      ./types/package.dhall sha256:4576b3998000a9e15b5e569913a36dcdee8607470d94e6b37f6d12e725588e51
+      ./types/package.dhall sha256:35d21e500af502817cf25857447ac8e847261b76055f2c23b43f76a6a953db0c
     ? ./types/package.dhall
 , defaults =
-      ./defaults/package.dhall sha256:f4cc4d0a87f5a474de645f4ec8320aa055fa391d2a97696acba2814b8f594eb8
+      ./defaults/package.dhall sha256:15e958705784a9fcb3c7637dac50ccf74be318db1ffc771af4d7ee9b5a3f2906
     ? ./defaults/package.dhall
 , schemas =
-      ./schemas/package.dhall sha256:6a1466287aa08d3911f9b07357079dfb58740747d66510367ad17290be695e6f
+      ./schemas/package.dhall sha256:bf3838a202e3d5d7f5b764229b069423ec54d2c6a8ea1658a1036ad855750bbd
     ? ./schemas/package.dhall
 , helpers =
-      ./helpers/package.dhall sha256:080889a3227bb0edd8d97dadff81da61e3852be82aad889487ba664a8732e87b
+      ./helpers/package.dhall sha256:334d50f7b6248b79c2d9c944d49dd60cb5ccd6e2812f42a83d4282eb6cf9a299
     ? ./helpers/package.dhall
 , render =
-      ./render/package.dhall sha256:380eab61bcc75473589242aa13011d0912f0634745f84c185296594c557bacb7
+      ./render/package.dhall sha256:102ffaeffabf83db684c6c1ee9c30023ad080aea4a776328f6fd7d3a8d4b1309
     ? ./render/package.dhall
 , extractors =
-      ./extractors/package.dhall sha256:761aabbb030ca0fca473273e7c8b45c29dcd848388bdb767db7322a1243a5dd6
+      ./extractors/package.dhall sha256:3113ce1ed76db6bcf9659492a578df9fda84d50054918046cce7991d59f99de0
     ? ./extractors/package.dhall
 }
