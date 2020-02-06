@@ -14,4 +14,9 @@ script:
     dhall type --quiet --file $f
   done
 
+  echo "Checking if all the cache fingerprints are correct"
+  ./scripts/freeze-package-dhalls.sh
+  git diff --color --exit-code
+
+  # Required for travis
   set +u
