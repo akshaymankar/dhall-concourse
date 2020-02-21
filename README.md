@@ -26,7 +26,7 @@ To use native rendering to render a list of jobs in a file called `jobs.dhall`, 
 
 ```dhall
 let Concourse = 
-      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.5.0/package.dhall
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.6.0/package.dhall
 
 let jobs = ./jobs.dhall
 
@@ -47,7 +47,7 @@ Similarly, to render a list of `GroupedJob`s in a filed called `grouped-jobs.dha
 
 ```dhall
 let Concourse = 
-      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.5.0/package.dhall
+      https://raw.githubusercontent.com/akshaymankar/dhall-concourse/0.6.0/package.dhall
 
 let groupedJobs = ./grouped-jobs.dhall
 
