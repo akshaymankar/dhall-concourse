@@ -61,6 +61,17 @@ let addTagsToTask
       → λ(c : StepConstructors S)
       → c.task (t ⫽ { tags = mergeTags t.tags tags }) (translateHooks S c h)
 
+let addTagsToSetPipeline
+    : List Text → Types.SetPipelineStep → Types.StepHooks Step → Step
+    =   λ(tags : List Text)
+      → λ(s : Types.SetPipelineStep)
+      → λ(h : Types.StepHooks Step)
+      → λ(S : Type)
+      → λ(c : StepConstructors S)
+      → c.set_pipeline
+          (s ⫽ { tags = mergeTags s.tags tags })
+          (translateHooks S c h)
+
 let addTagsToStep
     : List Text → Step → Step
     =   λ(tags : List Text)
@@ -70,6 +81,7 @@ let addTagsToStep
           { get = addTagsToGet tags
           , put = addTagsToPut tags
           , task = addTagsToTask tags
+          , set_pipeline = addTagsToSetPipeline tags
           , aggregate = ./aggregateWithHooks.dhall
           , do = ./doWithHooks.dhall
           , try = ./tryWithHooks.dhall

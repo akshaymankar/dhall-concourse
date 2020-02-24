@@ -1,49 +1,55 @@
 { taskStep =
-      ./taskStep.dhall sha256:70d9bca82912ffc2d670952657d8f54f5090ab7a1b3d87f136104bee11537359
+      ./taskStep.dhall sha256:35f1f101a0e28a192330aadc36105db3f4e4de4a2376dcdc906ce66ede466027
     ? ./taskStep.dhall
 , putStep =
-      ./putStep.dhall sha256:36cf1f3065db932e5cd52bc564b9ce0a4236a6713277dacb11119d497ff77196
+      ./putStep.dhall sha256:0bdc86fff43404a8bd70f7f1b0a1a1c06ef06cc8cc6564b091eb94f62efd985b
     ? ./putStep.dhall
 , getStep =
-      ./getStep.dhall sha256:7fa4a6cc1b49f64d6420d1ba0de9cfac09f0f78fac782644043d99d59ad00ed1
+      ./getStep.dhall sha256:44a9ad8aeddca12f390148e76d649e29607d1160e1984440a008e923b6e7cb1e
     ? ./getStep.dhall
+, setPipelineStep =
+      ./setPipelineStep.dhall sha256:d88e17fb0603e3464672ee22225828e5be3728955b57f9ce363fa32b39712e99
+    ? ./setPipelineStep.dhall
+, setPipelineStepWithHooks =
+      ./setPipelineStepWithHooks.dhall sha256:042f8840304647a3041d03b116468248256a43867b81d1f5653814f725b69caa
+    ? ./setPipelineStepWithHooks.dhall
 , aggregateStep =
-      ./aggregateStep.dhall sha256:4c63bc1b4c97b7a7496644ac35a848bce4673ae929ac7bce016d269a1df1d61c
+      ./aggregateStep.dhall sha256:66bd981b354edb0491ad2563392b75f943778ad4cffa0de49d7dac0f351b6137
     ? ./aggregateStep.dhall
 , inParallelStep =
-      ./inParallelStep.dhall sha256:16810a83749f2373df22b263004c7f462bbe744089cdba5749e241555339e2ec
+      ./inParallelStep.dhall sha256:0d99e7f5466a08ea64980b150c99f63c65c09b22e4a859a4eff95ec0f86f459e
     ? ./inParallelStep.dhall
 , inParallelStepSimple =
-      ./inParallelStepSimple.dhall sha256:70d3023fb015584b5ed0d439e0a0aaa8cef6802733d85256cf571a8fbd5da8fd
+      ./inParallelStepSimple.dhall sha256:3dd28a9566544d59482cdd9a8d29fa2617c47eab30f2027d90a966582340f266
     ? ./inParallelStepSimple.dhall
 , doStep =
-      ./doStep.dhall sha256:8db65241db7e62a1eb2ba241c61491ca964f438dfc74708f696ec2475fb65b08
+      ./doStep.dhall sha256:6939459a1703b9173c0cad95ab4f2c7e6b1c08856c74e16d70d4ac21be90d225
     ? ./doStep.dhall
 , tryStep =
-      ./tryStep.dhall sha256:54675d2eef37e557d8208d86dd76162b9fd7d97e7c24b7f249ca20e9b39319eb
+      ./tryStep.dhall sha256:3ff6d62d5444b1b0d8e0625cdf6ab784b8771e682d32615981fc50187c8d07d8
     ? ./tryStep.dhall
 , getWithHooks =
-      ./getWithHooks.dhall sha256:955df86d3c2e47cc8ad716753daa601ab480e517ef95d5cc254e81bff26830f4
+      ./getWithHooks.dhall sha256:814a97dd8f2a1b235cb78e5da23cde349d43c4c31e7685d6a186c1aff580f6fa
     ? ./getWithHooks.dhall
 , putWithHooks =
-      ./putWithHooks.dhall sha256:f371b5557998a9c6c8cc62931e5ed0f71f47e2446c61a66e06911d1c5b2890b5
+      ./putWithHooks.dhall sha256:8d495a462244021cdab012cb09787a91a414b55a8b5c0ad064cacd5d0bdca1f1
     ? ./putWithHooks.dhall
 , taskWithHooks =
-      ./taskWithHooks.dhall sha256:315fee6fb1194a7e9d65046f6c9b411b50ba5cc4648ce4ae83a90907aaac7b61
+      ./taskWithHooks.dhall sha256:e7147cb3d5e60ac0354c72b787305517bec0f839b0fea98173bac08da4c2f541
     ? ./taskWithHooks.dhall
 , inParallelWithHooks =
-      ./inParallelWithHooks.dhall sha256:165993bc29b1e5f1aa9b9be629b5ce443626cc1a481ff1af3a301ed492da0180
+      ./inParallelWithHooks.dhall sha256:6c1dddcbdf64f8a8bfd002a56ebba422b5be5c2922099e5a297dd25b4bb54fb6
     ? ./inParallelWithHooks.dhall
 , aggregateWithHooks =
-      ./aggregateWithHooks.dhall sha256:d1aa9c681ad69025596b888acc95ce81d1c5599de38441190499a19420e842a2
+      ./aggregateWithHooks.dhall sha256:8b11ec6d240005c4707cc6920539731b4788a6dcf717d3f9679da3c8c93581ae
     ? ./aggregateWithHooks.dhall
 , doWithHooks =
-      ./doWithHooks.dhall sha256:540a12579021f3b597f34d7929f4e9686d66274ad542173e8334a2236b748e7c
+      ./doWithHooks.dhall sha256:aa0aabe9c774a7f875f2b7f86ba732719b13c0ea00a7637a82b1e76526aa3c6a
     ? ./doWithHooks.dhall
 , tryWithHooks =
-      ./tryWithHooks.dhall sha256:b1808275879f924e73fd9c12393f04a9563c8f1a74743f5ac125d9849b912b0d
+      ./tryWithHooks.dhall sha256:bbec9d446615e592d83a5f9340ebad2ac289bfcab56fa95338c7e45662a42f5d
     ? ./tryWithHooks.dhall
 , addTags =
-      ./addTags.dhall sha256:646935e099f817d6d1e1bce332009a53a3ec02c21bfa1d41a9697fc772bcc423
+      ./addTags.dhall sha256:99644b3b9ba67a6febd9c5038cd3f0b19265ba95f6211569e941fc890db6ab95
     ? ./addTags.dhall
 }

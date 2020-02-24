@@ -22,6 +22,10 @@ let addHooks
                 λ(t : Types.TaskStep)
               → λ(_ : StepHooks Step)
               → ./taskWithHooks.dhall t hooks
+          , set_pipeline =
+                λ(s : Types.SetPipelineStep)
+              → λ(_ : StepHooks Step)
+              → ./setPipelineStepWithHooks.dhall s hooks
           , aggregate =
                 λ(steps : List Step)
               → λ(_ : StepHooks Step)

@@ -1,9 +1,5 @@
 let Types = ../types/package.dhall
 
-let Defaults = ../defaults/package.dhall
-
-let Prelude = ../lib/prelude.dhall
-
 in    (   λ(getStep : Types.GetStep)
         → λ(hooks : Types.StepHooks Types.Step)
         → λ(Step : Type)

@@ -25,6 +25,11 @@ let renderTask =
       → λ(hooks : Types.StepHooks JSON.Type)
       → concatJSONs [ ./taskStep.dhall task, ./stepHooks.dhall hooks ]
 
+let renderSetPipeline =
+        λ(s : Types.SetPipelineStep)
+      → λ(hooks : Types.StepHooks JSON.Type)
+      → concatJSONs [ ./setPipelineStep.dhall s, ./stepHooks.dhall hooks ]
+
 let renderAggregate =
         λ(steps : List JSON.Type)
       → λ(hooks : Types.StepHooks JSON.Type)
@@ -54,6 +59,7 @@ let render
           { get = renderGet
           , put = renderPut
           , task = renderTask
+          , set_pipeline = renderSetPipeline
           , aggregate = renderAggregate
           , do = renderDo
           , try = renderTry

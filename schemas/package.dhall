@@ -5,7 +5,7 @@
       ./Resource.dhall sha256:329c244c898ea59b34e2ee43b4d9f80a2ef4ceda1d18fcdb1ce9eeca117cfc04
     ? ./Resource.dhall
 , Job =
-      ./Job.dhall sha256:3ba2590e72451a38a1b682be7eb33db63853cbeaaf0c00ba728b23d676e7ae93
+      ./Job.dhall sha256:88ae8c7f60ae9614e933cb9b9d5cab4371fe280ccb5263fc777a2a8cfef9999b
     ? ./Job.dhall
 , GetStep =
       ./GetStep.dhall sha256:0dc6d75285f9908a6b37c21cf5e7b51c64fca19cb1995df9d4769b03791f53d0
@@ -34,4 +34,7 @@
 , PutStep =
       ./PutStep.dhall sha256:a492b698682efc43bdc74ca78358ef84affe33c78da494619e8997c058d0ae20
     ? ./PutStep.dhall
+, SetPipelineStep =
+      ./SetPipelineStep.dhall sha256:0be03696f64c97a4ab5dd342836cc7df535e94246c47dc3bcd6c7fcc6adc0d52
+    ? ./SetPipelineStep.dhall
 }

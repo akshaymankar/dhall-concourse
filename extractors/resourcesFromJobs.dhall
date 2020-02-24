@@ -15,7 +15,7 @@ let resourcesFromStepHooks
               catOptionals
                 (List Resource)
                 [ h.ensure, h.on_success, h.on_failure, h.on_abort ]
-        
+
         in  Prelude.List.concat Resource listOfListOfResources
 
 let resourcesFromGetStep
@@ -33,6 +33,12 @@ let resourcesFromPutStep
 let resourcesFromTaskStep
     : Types.TaskStep → StepHooks (List Resource) → List Resource
     =   λ(_ : Types.TaskStep)
+      → λ(h : StepHooks (List Resource))
+      → resourcesFromStepHooks h
+
+let resourcesFromSetPipelineStep
+    : Types.SetPipelineStep → StepHooks (List Resource) → List Resource
+    =   λ(_ : Types.SetPipelineStep)
       → λ(h : StepHooks (List Resource))
       → resourcesFromStepHooks h
 
@@ -75,6 +81,7 @@ let resourcesFromStep =
           { get = resourcesFromGetStep
           , put = resourcesFromPutStep
           , task = resourcesFromTaskStep
+          , set_pipeline = resourcesFromSetPipelineStep
           , aggregate = resourcesFromAggregateOrDo
           , do = resourcesFromAggregateOrDo
           , try = resourcesFromTry
@@ -87,8 +94,12 @@ let resourcesFromJob =
               catOptionals
                 Types.Step
                 [ j.on_abort, j.on_failure, j.on_success, j.ensure ]
-        
-        in  Prelude.List.concatMap Types.Step Resource resourcesFromStep (j.plan # hookSteps)
+
+        in  Prelude.List.concatMap
+              Types.Step
+              Resource
+              resourcesFromStep
+              (j.plan # hookSteps)
 
 in    Prelude.List.concatMap Types.Job Resource resourcesFromJob
     : List Types.Job → List Resource
