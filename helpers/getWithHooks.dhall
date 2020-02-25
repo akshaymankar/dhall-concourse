@@ -10,6 +10,6 @@ in    (   λ(getStep : Types.GetStep)
         → λ(constructors : Types.StepConstructors Step)
         → constructors.get
             getStep
-            (./translateHooks.dhall hooks Step constructors)
+            (./translateHooks.dhall Step constructors hooks)
       )
     : Types.GetStep → Types.StepHooks Types.Step → Types.Step

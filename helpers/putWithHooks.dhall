@@ -6,6 +6,6 @@ in    (   λ(putStep : Types.PutStep)
         → λ(constructors : Types.StepConstructors Step)
         → constructors.put
             putStep
-            (./translateHooks.dhall hooks Step constructors)
+            (./translateHooks.dhall Step constructors hooks)
       )
     : Types.PutStep → Types.StepHooks Types.Step → Types.Step

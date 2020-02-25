@@ -3,13 +3,13 @@ let Types = ../types/package.dhall
 let Prelude = ../lib/prelude.dhall
 
 let translateHooks
-    :   Types.StepHooks Types.Step
-      → ∀(S : Type)
+    :   ∀(S : Type)
       → Types.StepConstructors S
+      → Types.StepHooks Types.Step
       → Types.StepHooks S
-    =   λ(hooks : Types.StepHooks Types.Step)
-      → λ(S : Type)
+    =   λ(S : Type)
       → λ(constructors : Types.StepConstructors S)
+      → λ(hooks : Types.StepHooks Types.Step)
       → let translateOptionalStep =
               Prelude.Optional.map
                 Types.Step

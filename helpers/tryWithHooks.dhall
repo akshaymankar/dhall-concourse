@@ -6,10 +6,8 @@ let tryStep
       → λ(hooks : Types.StepHooks Types.Step)
       → λ(Step : Type)
       → λ(constructors : Types.StepConstructors Step)
-      → let stepTypeFix = step Step constructors
-
-        in  constructors.try
-              stepTypeFix
-              (./translateHooks.dhall hooks Step constructors)
+      → constructors.try
+          (step Step constructors)
+          (./translateHooks.dhall Step constructors hooks)
 
 in  tryStep
