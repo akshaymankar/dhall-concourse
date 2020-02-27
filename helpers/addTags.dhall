@@ -29,7 +29,13 @@ let addTagsToGet
       → λ(h : Types.StepHooks Step)
       → λ(S : Type)
       → λ(c : StepConstructors S)
-      → c.get (g ⫽ { tags = mergeTags g.tags tags }) (translateHooks S c h)
+      → c.get
+          (   g
+            ⫽ { tags = mergeTags g.tags tags
+              , resource = ./addTagsToResource.dhall tags g.resource
+              }
+          )
+          (translateHooks S c h)
 
 let addTagsToPut
     : List Text → Types.PutStep → Types.StepHooks Step → Step
@@ -38,7 +44,13 @@ let addTagsToPut
       → λ(h : Types.StepHooks Step)
       → λ(S : Type)
       → λ(c : StepConstructors S)
-      → c.put (p ⫽ { tags = mergeTags p.tags tags }) (translateHooks S c h)
+      → c.put
+          (   p
+            ⫽ { tags = mergeTags p.tags tags
+              , resource = ./addTagsToResource.dhall tags p.resource
+              }
+          )
+          (translateHooks S c h)
 
 let addTagsToTask
     : List Text → Types.TaskStep → Types.StepHooks Step → Step
@@ -48,7 +60,6 @@ let addTagsToTask
       → λ(S : Type)
       → λ(c : StepConstructors S)
       → c.task (t ⫽ { tags = mergeTags t.tags tags }) (translateHooks S c h)
-
 
 let addTagsToStep
     : List Text → Step → Step

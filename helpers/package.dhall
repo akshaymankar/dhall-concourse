@@ -44,6 +44,6 @@
       ./tryWithHooks.dhall sha256:b1808275879f924e73fd9c12393f04a9563c8f1a74743f5ac125d9849b912b0d
     ? ./tryWithHooks.dhall
 , addTags =
-      ./addTags.dhall sha256:e802dce26e2b99c4dd7c529baa520b95199916e3b4a0733eabbb1d31d975e7a4
+      ./addTags.dhall sha256:646935e099f817d6d1e1bce332009a53a3ec02c21bfa1d41a9697fc772bcc423
     ? ./addTags.dhall
 }
