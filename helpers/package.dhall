@@ -58,4 +58,7 @@
 , addTags =
       ./addTags.dhall sha256:7d7dcb01bdc6b5b06df2aba664a48dfbca67956a06bab532a52791b7054081a4
     ? ./addTags.dhall
+, addHooks =
+      ./addHooks.dhall sha256:6ed8ea837eb848664a4e697b4230e63887dea15fe72b2c18fbe3240cc5d87c63
+    ? ./addHooks.dhall
 }

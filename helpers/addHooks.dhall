@@ -26,6 +26,10 @@ let addHooks
                 λ(s : Types.SetPipelineStep)
               → λ(_ : StepHooks Step)
               → ./setPipelineStepWithHooks.dhall s hooks
+          , load_var =
+                λ(l : Types.LoadVarStep)
+              → λ(_ : StepHooks Step)
+              → ./loadVarStepWithHooks.dhall l hooks
           , aggregate =
                 λ(steps : List Step)
               → λ(_ : StepHooks Step)
