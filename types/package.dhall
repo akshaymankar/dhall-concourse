@@ -17,7 +17,7 @@
       ./InParallelStep.dhall sha256:92395de51f548251bc0caae8e3aadafba89e4ed6c743ea86c80b4651fa0cd678
     ? ./InParallelStep.dhall
 , Job =
-      ./Job.dhall sha256:9e4477028b63bede14c381e715cd431415a82ec4202e224b404c29d49355a0dc
+      ./Job.dhall sha256:618f1d950b23ff08289f00f584e787b7e9d0f489494bf6f56ad30c3557110f2f
     ? ./Job.dhall
 , JobBuildLogRetention =
       ./JobBuildLogRetention.dhall sha256:130df5b466a3822ac49495046e68dc58b46b0366ac31f05520e44949010349b6
@@ -35,10 +35,10 @@
       ./ResourceType.dhall sha256:1a22b92783a4256b1c7d4e8ef1ae56641fce04c81bfd37ed4bba69904c5387ee
     ? ./ResourceType.dhall
 , Step =
-      ./Step.dhall sha256:5c81d26cbc5be85ac48b5be409e73ff38b0dcc62d621db226ea62978efb4a8e8
+      ./Step.dhall sha256:2a30fc413d93ae933b2865be6cbc9b8fb5b82650bf4a831b37b9f7bb9967481d
     ? ./Step.dhall
 , StepConstructors =
-      ./StepConstructors.dhall sha256:78dafdf71dcd01e35a6dc1bef8084da2a2df01845ee7f601dd67e78bf68b890c
+      ./StepConstructors.dhall sha256:d8d4abcf1cb6490bdea25875dc3c3f7a7a2e675a3c837c8b726304e7a62f8152
     ? ./StepConstructors.dhall
 , StepHooks =
       ./StepHooks.dhall sha256:4894aa205d000a93f04b62b2dbceff77cdf3fcda634bcc2fa6d3777e10c2734a
@@ -71,9 +71,15 @@
       ./TextTextPair.dhall sha256:641845344ce6be001271e0052808b6c8ca10ce5939efefea3560c68c37538454
     ? ./TextTextPair.dhall
 , GroupedJob =
-      ./GroupedJob.dhall sha256:1a764ce965e5b2b612b771d1850f8657d3f915be9f94ddce6bf5a87a026e7118
+      ./GroupedJob.dhall sha256:e65840db227b5c8f3956800e22fc4aa0f23f9df89ad83c14f7220c03bdfa38cf
     ? ./GroupedJob.dhall
 , SetPipelineStep =
       ./SetPipelineStep.dhall sha256:2aa66aabecb1b2de52299cf48ba96e17acc19199270f30093fc0d5fcb80ae4d2
     ? ./SetPipelineStep.dhall
+, LoadVarStep =
+      ./LoadVarStep.dhall sha256:5d2a1ef348ef088dad77a19c66061b5569470da85e6b46ca8a39c75331658f0a
+    ? ./LoadVarStep.dhall
+, LoadVarFormat =
+      ./LoadVarFormat.dhall sha256:5df414555c6d545a16fd26646275a1ded56e71ea82645ce82f312b2bfacbc154
+    ? ./LoadVarFormat.dhall
 }

@@ -30,15 +30,10 @@ let resourcesFromPutStep
       → λ(h : StepHooks (List Resource))
       → [ p.resource ] # resourcesFromStepHooks h
 
-let resourcesFromTaskStep
-    : Types.TaskStep → StepHooks (List Resource) → List Resource
-    =   λ(_ : Types.TaskStep)
-      → λ(h : StepHooks (List Resource))
-      → resourcesFromStepHooks h
-
-let resourcesFromSetPipelineStep
-    : Types.SetPipelineStep → StepHooks (List Resource) → List Resource
-    =   λ(_ : Types.SetPipelineStep)
+let resourcesFromHooksOnly
+    : ∀(T : Type) → T → StepHooks (List Resource) → List Resource
+    =   λ(T : Type)
+      → λ(_ : T)
       → λ(h : StepHooks (List Resource))
       → resourcesFromStepHooks h
 
@@ -80,8 +75,9 @@ let resourcesFromStep =
           (List Resource)
           { get = resourcesFromGetStep
           , put = resourcesFromPutStep
-          , task = resourcesFromTaskStep
-          , set_pipeline = resourcesFromSetPipelineStep
+          , task = resourcesFromHooksOnly Types.TaskStep
+          , set_pipeline = resourcesFromHooksOnly Types.SetPipelineStep
+          , load_var = resourcesFromHooksOnly Types.LoadVarStep
           , aggregate = resourcesFromAggregateOrDo
           , do = resourcesFromAggregateOrDo
           , try = resourcesFromTry

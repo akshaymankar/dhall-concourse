@@ -5,7 +5,7 @@
       ./Resource.dhall sha256:329c244c898ea59b34e2ee43b4d9f80a2ef4ceda1d18fcdb1ce9eeca117cfc04
     ? ./Resource.dhall
 , Job =
-      ./Job.dhall sha256:88ae8c7f60ae9614e933cb9b9d5cab4371fe280ccb5263fc777a2a8cfef9999b
+      ./Job.dhall sha256:235e3d01d6d15ccbc504173ad8298808d68e8655b8fcb4dcf4d5f7d2777bcdea
     ? ./Job.dhall
 , GetStep =
       ./GetStep.dhall sha256:0dc6d75285f9908a6b37c21cf5e7b51c64fca19cb1995df9d4769b03791f53d0

@@ -72,6 +72,15 @@ let addTagsToSetPipeline
           (s ⫽ { tags = mergeTags s.tags tags })
           (translateHooks S c h)
 
+let addTagsToLoadVar
+    : List Text → Types.LoadVarStep → Types.StepHooks Step → Step
+    =   λ(tags : List Text)
+      → λ(l : Types.LoadVarStep)
+      → λ(h : Types.StepHooks Step)
+      → λ(S : Type)
+      → λ(c : StepConstructors S)
+      → c.load_var (l ⫽ { tags = mergeTags l.tags tags }) (translateHooks S c h)
+
 let addTagsToStep
     : List Text → Step → Step
     =   λ(tags : List Text)
@@ -82,6 +91,7 @@ let addTagsToStep
           , put = addTagsToPut tags
           , task = addTagsToTask tags
           , set_pipeline = addTagsToSetPipeline tags
+          , load_var = addTagsToLoadVar tags
           , aggregate = ./aggregateWithHooks.dhall
           , do = ./doWithHooks.dhall
           , try = ./tryWithHooks.dhall
