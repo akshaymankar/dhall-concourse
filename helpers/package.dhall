@@ -13,6 +13,12 @@
 , setPipelineStepWithHooks =
       ./setPipelineStepWithHooks.dhall sha256:b2766b447007bf7c69967f14f3a1946c3083de93265f6354085a8107a087ce0f
     ? ./setPipelineStepWithHooks.dhall
+, loadVarStep =
+      ./loadVarStep.dhall sha256:cf17f2673910039b420f46eee825e5e3306dfaa169fd83152141f9dd259f6ea9
+    ? ./loadVarStep.dhall
+, loadVarStepWithHooks =
+      ./loadVarStepWithHooks.dhall sha256:ee0611f1c1875b5783d1391d1df2e29d72e8279bf8c9874430d431161b09ae77
+    ? ./loadVarStepWithHooks.dhall
 , aggregateStep =
       ./aggregateStep.dhall sha256:e178cada70176915b7d89d162bbff4c63937d567d79f3c5d12200fe83b269fee
     ? ./aggregateStep.dhall
