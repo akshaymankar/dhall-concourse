@@ -1,2 +1,2 @@
-  https://prelude.dhall-lang.org/v13.0.0/package.dhall sha256:4aa8581954f7734d09b7b21fddbf5d8df901a44b54b4ef26ea71db92de0b1a12
-? https://prelude.dhall-lang.org/v13.0.0/package.dhall
+  https://prelude.dhall-lang.org/v16.0.0/package.dhall sha256:7e2b87add393288298baabc73119601182d04630b9989bdb9ac0822dc0863b38
+? https://prelude.dhall-lang.org/v16.0.0/package.dhall

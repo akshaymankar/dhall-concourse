@@ -8,12 +8,12 @@
       ./schemas/package.dhall sha256:1e6a6c263d58a0c76d4507054fa5458ee2b8dcd2936b037393e6410458e2d4e8
     ? ./schemas/package.dhall
 , helpers =
-      ./helpers/package.dhall sha256:48a2c2ffd6bb2322976ba9b891e2403153ef0a73685493ccfd43f082c57ebb15
+      ./helpers/package.dhall sha256:c213187cd2f23498f63fe020b59dcced1c83e9951b68974eef6821b0ce6da0fb
     ? ./helpers/package.dhall
 , render =
-      ./render/package.dhall sha256:ac54030d28d5eb754be9e944ff0a372de62d2422e33624ccd486dc535085e96e
+      ./render/package.dhall sha256:1d3ce4dfa07be4f099265439d7c40f7f77bc5b8c1e7172774ecf61968e8eae80
     ? ./render/package.dhall
 , extractors =
-      ./extractors/package.dhall sha256:67c2c05a104708900547969798d6a81d319903f70a04812149ec6ad3682f6f5b
+      ./extractors/package.dhall sha256:f3b84a4f8fb65ee5cb0fae445cf9b56335b42023b3358f37fe7cee1629c86b39
     ? ./extractors/package.dhall
 }
