@@ -10,8 +10,8 @@ let TextOptionalTextPair = { mapKey : Text, mapValue : Optional Text }
 
 let render
     : Types.TaskConfig → JSON.Type
-    =   λ(c : Types.TaskConfig)
-      → JSON.object
+    = λ(c : Types.TaskConfig) →
+        JSON.object
           ( toMap
               { platform = JSON.string c.platform
               , run = ./taskRunConfig.dhall c.run

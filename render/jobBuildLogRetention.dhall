@@ -7,8 +7,8 @@ let JSON = Prelude.JSON
 let RenderOptional = ./optionals/package.dhall
 
 let render =
-        λ(r : Types.JobBuildLogRetention)
-      → JSON.object
+      λ(r : Types.JobBuildLogRetention) →
+        JSON.object
           ( toMap
               { days = RenderOptional.natural r.days
               , builds = RenderOptional.natural r.builds

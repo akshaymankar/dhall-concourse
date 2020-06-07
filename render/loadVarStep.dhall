@@ -5,8 +5,8 @@ let RenderOptional = ./optionals/package.dhall
 let JSON = (../lib/prelude.dhall).JSON
 
 let renderFormat =
-        λ(f : Types.LoadVarFormat)
-      → JSON.string
+      λ(f : Types.LoadVarFormat) →
+        JSON.string
           ( merge
               { detect = "detect"
               , json = "json"
@@ -19,8 +19,8 @@ let renderFormat =
 
 let render
     : Types.LoadVarStep → Types.JSONObject
-    =   λ(l : Types.LoadVarStep)
-      → toMap
+    = λ(l : Types.LoadVarStep) →
+        toMap
           { load_var = JSON.string l.var
           , file = JSON.string l.file
           , format =

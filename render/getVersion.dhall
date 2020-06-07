@@ -14,11 +14,11 @@ let renderEvery
 
 let renderSpecific
     : List Types.TextTextPair → JSON.Type
-    =   λ(version : List Types.TextTextPair)
-      → JSON.object (./textTextMap.dhall version)
+    = λ(version : List Types.TextTextPair) →
+        JSON.object (./textTextMap.dhall version)
 
-in    λ(version : Types.GetVersion)
-    → merge
+in  λ(version : Types.GetVersion) →
+      merge
         { Latest = renderLatest
         , Every = renderEvery
         , SpecificVersion = renderSpecific

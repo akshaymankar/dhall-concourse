@@ -5,6 +5,6 @@
 , version : Optional (List ./TextTextPair.dhall)
 , check_every : Optional Text
 , tags : Optional (List Text)
-, public: Optional Bool
+, public : Optional Bool
 , webhook_token : Optional Text
 }

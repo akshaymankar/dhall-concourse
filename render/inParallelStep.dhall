@@ -9,8 +9,8 @@ let RenderOptional = ./optionals/package.dhall
 let renderSteps = λ(steps : List JSON.Type) → JSON.array steps
 
 let renderConfig =
-        λ(config : Types.InParallelConfig JSON.Type)
-      → JSON.object
+      λ(config : Types.InParallelConfig JSON.Type) →
+        JSON.object
           ( toMap
               { steps = JSON.array config.steps
               , limit = RenderOptional.natural config.limit
@@ -20,8 +20,8 @@ let renderConfig =
 
 let render
     : Types.InParallelStep JSON.Type → Types.JSONObject
-    =   λ(p : Types.InParallelStep JSON.Type)
-      → toMap
+    = λ(p : Types.InParallelStep JSON.Type) →
+        toMap
           { in_parallel = merge { Steps = renderSteps, Config = renderConfig } p
           }
 

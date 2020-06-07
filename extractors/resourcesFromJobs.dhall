@@ -10,8 +10,8 @@ let catOptionals = ../utils/catOptionals.dhall
 
 let resourcesFromStepHooks
     : StepHooks (List Resource) → List Resource
-    =   λ(h : StepHooks (List Resource))
-      → let listOfListOfResources =
+    = λ(h : StepHooks (List Resource)) →
+        let listOfListOfResources =
               catOptionals
                 (List Resource)
                 [ h.ensure, h.on_success, h.on_failure, h.on_abort ]
@@ -20,43 +20,43 @@ let resourcesFromStepHooks
 
 let resourcesFromGetStep
     : Types.GetStep → StepHooks (List Resource) → List Resource
-    =   λ(g : Types.GetStep)
-      → λ(h : StepHooks (List Resource))
-      → [ g.resource ] # resourcesFromStepHooks h
+    = λ(g : Types.GetStep) →
+      λ(h : StepHooks (List Resource)) →
+        [ g.resource ] # resourcesFromStepHooks h
 
 let resourcesFromPutStep
     : Types.PutStep → StepHooks (List Resource) → List Resource
-    =   λ(p : Types.PutStep)
-      → λ(h : StepHooks (List Resource))
-      → [ p.resource ] # resourcesFromStepHooks h
+    = λ(p : Types.PutStep) →
+      λ(h : StepHooks (List Resource)) →
+        [ p.resource ] # resourcesFromStepHooks h
 
 let resourcesFromHooksOnly
     : ∀(T : Type) → T → StepHooks (List Resource) → List Resource
-    =   λ(T : Type)
-      → λ(_ : T)
-      → λ(h : StepHooks (List Resource))
-      → resourcesFromStepHooks h
+    = λ(T : Type) →
+      λ(_ : T) →
+      λ(h : StepHooks (List Resource)) →
+        resourcesFromStepHooks h
 
 let resourcesFromAggregateOrDo
     : List (List Resource) → StepHooks (List Resource) → List Resource
-    =   λ(rs : List (List Resource))
-      → λ(h : StepHooks (List Resource))
-      → Prelude.List.concat Resource rs # resourcesFromStepHooks h
+    = λ(rs : List (List Resource)) →
+      λ(h : StepHooks (List Resource)) →
+        Prelude.List.concat Resource rs # resourcesFromStepHooks h
 
 let resourcesFromInParallelSteps =
       λ(rs : List (List Resource)) → Prelude.List.concat Resource rs
 
 let resourcesFromInParallelConfig =
-        λ(config : Types.InParallelConfig (List Resource))
-      → Prelude.List.concat Resource config.steps
+      λ(config : Types.InParallelConfig (List Resource)) →
+        Prelude.List.concat Resource config.steps
 
 let resourcesFromInParallel
-    :   Types.InParallelStep (List Resource)
-      → StepHooks (List Resource)
-      → List Resource
-    =   λ(step : Types.InParallelStep (List Resource))
-      → λ(h : StepHooks (List Resource))
-      →   merge
+    : Types.InParallelStep (List Resource) →
+      StepHooks (List Resource) →
+        List Resource
+    = λ(step : Types.InParallelStep (List Resource)) →
+      λ(h : StepHooks (List Resource)) →
+          merge
             { Steps = resourcesFromInParallelSteps
             , Config = resourcesFromInParallelConfig
             }
@@ -65,13 +65,13 @@ let resourcesFromInParallel
 
 let resourcesFromTry
     : List Resource → StepHooks (List Resource) → List Resource
-    =   λ(rs : List Resource)
-      → λ(h : StepHooks (List Resource))
-      → rs # resourcesFromStepHooks h
+    = λ(rs : List Resource) →
+      λ(h : StepHooks (List Resource)) →
+        rs # resourcesFromStepHooks h
 
 let resourcesFromStep =
-        λ(s : Types.Step)
-      → s
+      λ(s : Types.Step) →
+        s
           (List Resource)
           { get = resourcesFromGetStep
           , put = resourcesFromPutStep
@@ -85,8 +85,8 @@ let resourcesFromStep =
           }
 
 let resourcesFromJob =
-        λ(j : Types.Job)
-      → let hookSteps =
+      λ(j : Types.Job) →
+        let hookSteps =
               catOptionals
                 Types.Step
                 [ j.on_abort, j.on_failure, j.on_success, j.ensure ]

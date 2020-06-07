@@ -9,8 +9,8 @@ let RenderOptional = ./optionals/package.dhall
 let renderInBuilt = λ(ignored : Text) → None JSON.Type
 
 let renderCustom =
-        λ(c : Types.CustomResourceType)
-      → Some
+      λ(c : Types.CustomResourceType) →
+        Some
           ( JSON.object
               ( toMap
                   { name = JSON.string c.name
@@ -26,5 +26,5 @@ let renderCustom =
               )
           )
 
-in    λ(r : Types.ResourceType)
-    → merge { InBuilt = renderInBuilt, Custom = renderCustom } r
+in  λ(r : Types.ResourceType) →
+      merge { InBuilt = renderInBuilt, Custom = renderCustom } r

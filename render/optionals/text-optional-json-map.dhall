@@ -12,8 +12,8 @@ let id = λ(x : JSON.Type) → x
 
 let renderPair
     : TextOptionalJSON → TextJSON
-    =   λ(p : TextOptionalJSON)
-      →   p
+    = λ(p : TextOptionalJSON) →
+          p
         ⫽ { mapValue =
               ./generic.dhall JSON.Type id (p.mapValue : Optional JSON.Type)
           }

@@ -2,8 +2,8 @@ let Types = ../types/package.dhall
 
 let Prelude = ../lib/prelude.dhall
 
-in    λ(groupedJobs : List Types.GroupedJob)
-    → let jobs =
+in  λ(groupedJobs : List Types.GroupedJob) →
+      let jobs =
             Prelude.List.map
               Types.GroupedJob
               Types.Job
@@ -17,8 +17,8 @@ in    λ(groupedJobs : List Types.GroupedJob)
           = Prelude.List.concatMap
               Types.GroupedJob
               RenderedGroup
-              (   λ(groupedJob : Types.GroupedJob)
-                → Prelude.List.map
+              ( λ(groupedJob : Types.GroupedJob) →
+                  Prelude.List.map
                     Text
                     RenderedGroup
                     (λ(g : Text) → { name = g, jobs = [ groupedJob.job.name ] })

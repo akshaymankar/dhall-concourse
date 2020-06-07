@@ -10,8 +10,8 @@ let TextJSONPair = { mapKey : Text, mapValue : JSON.Type }
 
 let render
     : Types.TaskStep → Types.JSONObject
-    =   λ(t : Types.TaskStep)
-      → Prelude.List.concat
+    = λ(t : Types.TaskStep) →
+        Prelude.List.concat
           TextJSONPair
           [ toMap
               { task = JSON.string t.task

@@ -6,8 +6,8 @@ let RenderOptional = ./optionals/package.dhall
 
 let render
     : Types.TaskRunConfig → JSON.Type
-    =   λ(c : Types.TaskRunConfig)
-      → JSON.object
+    = λ(c : Types.TaskRunConfig) →
+        JSON.object
           ( toMap
               { path = JSON.string c.path
               , args = RenderOptional.lists.text c.args

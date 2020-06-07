@@ -8,8 +8,8 @@ let RenderOptional = ./optionals/package.dhall
 
 let typeName
     : Types.ResourceType → Text
-    =   λ(t : Types.ResourceType)
-      → merge
+    = λ(t : Types.ResourceType) →
+        merge
           { InBuilt = λ(n : Text) → n
           , Custom = λ(c : Types.CustomResourceType) → c.name
           }
@@ -17,8 +17,8 @@ let typeName
 
 let render
     : Types.Resource → JSON.Type
-    =   λ(r : Types.Resource)
-      → JSON.object
+    = λ(r : Types.Resource) →
+        JSON.object
           ( toMap
               { name = JSON.string r.name
               , type = JSON.string (typeName r.type)

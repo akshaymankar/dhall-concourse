@@ -11,7 +11,7 @@ let renderConfig =
 
 let render
     : Types.TaskSpec → Types.JSONObject
-    =   λ(s : Types.TaskSpec)
-      → merge { File = renderFile, Config = renderConfig } s
+    = λ(s : Types.TaskSpec) →
+        merge { File = renderFile, Config = renderConfig } s
 
 in  render

@@ -8,8 +8,8 @@ let RenderOptional = ./optionals/package.dhall
 
 let render
     : Types.TaskOutput → JSON.Type
-    =   λ(o : Types.TaskOutput)
-      → JSON.object
+    = λ(o : Types.TaskOutput) →
+        JSON.object
           ( toMap
               { name = JSON.string o.name, path = RenderOptional.text o.path }
           )

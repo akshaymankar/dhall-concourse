@@ -12,8 +12,8 @@ let RenderOptional = ./optionals/package.dhall
 
 let renderPair
     : TextOptionalTextPair → TextJSONPair
-    =   λ(p : TextOptionalTextPair)
-      → p ⫽ { mapValue = RenderOptional.text p.mapValue }
+    = λ(p : TextOptionalTextPair) →
+        p ⫽ { mapValue = RenderOptional.text p.mapValue }
 
 let renderTextTextMap
     : List TextOptionalTextPair → Types.JSONObject

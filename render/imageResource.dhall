@@ -8,8 +8,8 @@ let RenderOptional = ./optionals/package.dhall
 
 let render
     : Types.ImageResource → JSON.Type
-    =   λ(r : Types.ImageResource)
-      → JSON.object
+    = λ(r : Types.ImageResource) →
+        JSON.object
           ( toMap
               { type = JSON.string r.type
               , source = RenderOptional.jsonObject r.source

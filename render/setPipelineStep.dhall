@@ -6,8 +6,8 @@ let JSON = (../lib/prelude.dhall).JSON
 
 let render
     : Types.SetPipelineStep → Types.JSONObject
-    =   λ(s : Types.SetPipelineStep)
-      → toMap
+    = λ(s : Types.SetPipelineStep) →
+        toMap
           { set_pipeline = JSON.string s.set_pipeline
           , file = JSON.string s.file
           , vars = RenderOptional.jsonObject s.vars

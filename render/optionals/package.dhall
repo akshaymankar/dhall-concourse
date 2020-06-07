@@ -8,7 +8,7 @@ let Prelude =
 
 let JSON = Prelude.JSON
 
-in  { generic = generic
+in  { generic
     , bool = generic Bool JSON.bool
     , jsonObject =
           ./json-object.dhall sha256:50dabedc3c66450582fcdfc8db8dd6e4edb29a008d9a091835286d8ff4fd7867

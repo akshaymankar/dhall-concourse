@@ -8,4 +8,4 @@ let generic =
         ./generic.dhall sha256:6d74aaf570484850db87dd8e207f810a85cb97507926eee8ec485222f6758db4
       ? ./generic.dhall
 
-in  { generic = generic, text = generic Text JSON.string }
+in  { generic, text = generic Text JSON.string }

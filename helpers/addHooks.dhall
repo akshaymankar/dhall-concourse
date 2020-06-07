@@ -6,46 +6,46 @@ let StepHooks = Types.StepHooks
 
 let addHooks
     : Step → StepHooks Step → Step
-    =   λ(theStep : Step)
-      → λ(hooks : StepHooks Step)
-      → theStep
+    = λ(theStep : Step) →
+      λ(hooks : StepHooks Step) →
+        theStep
           Step
           { get =
-                λ(g : Types.GetStep)
-              → λ(_ : StepHooks Step)
-              → ./getWithHooks.dhall g hooks
+              λ(g : Types.GetStep) →
+              λ(_ : StepHooks Step) →
+                ./getWithHooks.dhall g hooks
           , put =
-                λ(p : Types.PutStep)
-              → λ(_ : StepHooks Step)
-              → ./putWithHooks.dhall p hooks
+              λ(p : Types.PutStep) →
+              λ(_ : StepHooks Step) →
+                ./putWithHooks.dhall p hooks
           , task =
-                λ(t : Types.TaskStep)
-              → λ(_ : StepHooks Step)
-              → ./taskWithHooks.dhall t hooks
+              λ(t : Types.TaskStep) →
+              λ(_ : StepHooks Step) →
+                ./taskWithHooks.dhall t hooks
           , set_pipeline =
-                λ(s : Types.SetPipelineStep)
-              → λ(_ : StepHooks Step)
-              → ./setPipelineStepWithHooks.dhall s hooks
+              λ(s : Types.SetPipelineStep) →
+              λ(_ : StepHooks Step) →
+                ./setPipelineStepWithHooks.dhall s hooks
           , load_var =
-                λ(l : Types.LoadVarStep)
-              → λ(_ : StepHooks Step)
-              → ./loadVarStepWithHooks.dhall l hooks
+              λ(l : Types.LoadVarStep) →
+              λ(_ : StepHooks Step) →
+                ./loadVarStepWithHooks.dhall l hooks
           , aggregate =
-                λ(steps : List Step)
-              → λ(_ : StepHooks Step)
-              → ./aggregateWithHooks.dhall steps hooks
+              λ(steps : List Step) →
+              λ(_ : StepHooks Step) →
+                ./aggregateWithHooks.dhall steps hooks
           , in_parallel =
-                λ(steps : Types.InParallelStep Step)
-              → λ(_ : StepHooks Step)
-              → ./inParallelWithHooks.dhall steps hooks
+              λ(steps : Types.InParallelStep Step) →
+              λ(_ : StepHooks Step) →
+                ./inParallelWithHooks.dhall steps hooks
           , do =
-                λ(steps : List Step)
-              → λ(_ : StepHooks Step)
-              → ./doWithHooks.dhall steps hooks
+              λ(steps : List Step) →
+              λ(_ : StepHooks Step) →
+                ./doWithHooks.dhall steps hooks
           , try =
-                λ(step : Step)
-              → λ(_ : StepHooks Step)
-              → ./tryWithHooks.dhall step hooks
+              λ(step : Step) →
+              λ(_ : StepHooks Step) →
+                ./tryWithHooks.dhall step hooks
           }
 
 in  addHooks

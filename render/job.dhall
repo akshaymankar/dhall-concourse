@@ -13,8 +13,8 @@ let optionalLogRetention =
         Types.JobBuildLogRetention
         ./jobBuildLogRetention.dhall
 
-in    λ(j : Types.Job)
-    → JSON.object
+in  λ(j : Types.Job) →
+      JSON.object
         ( toMap
             { name = JSON.string j.name
             , plan =

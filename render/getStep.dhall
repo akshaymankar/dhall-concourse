@@ -6,8 +6,8 @@ let RenderOptional = ./optionals/package.dhall
 
 let render
     : Types.GetStep → Types.JSONObject
-    =   λ(g : Types.GetStep)
-      → toMap
+    = λ(g : Types.GetStep) →
+        toMap
           { get = nameResource.getName g.get g.resource
           , resource = nameResource.getResource g.get g.resource
           , params = RenderOptional.jsonObject g.params
