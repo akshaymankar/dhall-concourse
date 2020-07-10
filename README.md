@@ -136,10 +136,6 @@ To notify `dhall-fly` that we'd be passing it a `List Concourse.Types.GroupedJob
 fly -t <TARGET> set-pipeline -p hello-dhall -c <(dhall-fly --pipeline-type grouped-jobs <example1.dhall)
 ```
 
-### Example 3 (Real World™)
-
-The Cloudfoundry Eirini team was facing issues with templating their pipeline YAMLs. They started converting their spruce/aviator based yaml templating into dhall. The work in progress can be seen in [their CI repo](https://github.com/cloudfoundry-incubator/eirini-ci/blob/47d2f229e33d9fcdb5641cec06fa68a0d82c0bff/pipelines/ci/pipeline.dhall).
-
 ## Why are Steps so complicated?
 
 In concourse, a step can be one of `get`, `put`, `task`, `in_parallel`, `aggregate`, `do` or `try`. The `in_parallel`, `do` and `aggregate` are list of steps, `try` represents one step. This makes definition of the `Step` type recursive, as in to define a `Step` we'd already need definition of a Step. In total languages like dhall, this is a little tricky to do. There is an explanation in [dhall docs about how to do this](https://docs.dhall-lang.org/howtos/How-to-translate-recursive-code-to-Dhall.html). An example of this can be found in dhall prelude's definition of the [JSON Type](https://github.com/dhall-lang/dhall-lang/blob/master/Prelude/JSON/Type)
