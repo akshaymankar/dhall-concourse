@@ -58,6 +58,9 @@
 , addTags =
       ./addTags.dhall sha256:4ab781e4a817a2e44113e9909f0d0cd2584594e1d0e12c7cc73fcd6df540db09
     ? ./addTags.dhall
+, addTagsToStepsOnly =
+      ./addTagsToStepsOnly.dhall sha256:fe9b8a7f6cfbad97af4be5e3a0c90d042a7448c43b6de56b72fbf4b1992deb11
+    ? ./addTagsToStepsOnly.dhall
 , addHooks =
       ./addHooks.dhall sha256:3b57b57d9dd32b2ee80942e77ec24814fe9babc850012148c79fb9e613d89966
     ? ./addHooks.dhall
