@@ -1,8 +1,8 @@
 language: generic
 
 install:
-- wget https://github.com/dhall-lang/dhall-haskell/releases/download/1.33.1/dhall-1.33.1-x86_64-linux.tar.bz2
-- tar xvf dhall-1.33.1-x86_64-linux.tar.bz2
+- wget https://github.com/dhall-lang/dhall-haskell/releases/download/1.36.0/dhall-1.36.0-x86_64-linux.tar.bz2
+- tar xvf dhall-1.36.0-x86_64-linux.tar.bz2
 - sudo mv ./bin/dhall /usr/local/bin/dhall
 
 script:
