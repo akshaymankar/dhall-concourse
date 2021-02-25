@@ -56,10 +56,10 @@
       ./tryWithHooks.dhall sha256:ef71fc27e04eacf1fbcb3d8f5a014881c07e236ae59f71c4bf1bb4bfd9d2f4a7
     ? ./tryWithHooks.dhall
 , addTags =
-      ./addTags.dhall sha256:4ab781e4a817a2e44113e9909f0d0cd2584594e1d0e12c7cc73fcd6df540db09
+      ./addTags.dhall sha256:a1fda3c77be5133d665d7cb132065b1ccd9237aa047b5f6429be307849500aaa
     ? ./addTags.dhall
 , addTagsToStepsOnly =
-      ./addTagsToStepsOnly.dhall sha256:fe9b8a7f6cfbad97af4be5e3a0c90d042a7448c43b6de56b72fbf4b1992deb11
+      ./addTagsToStepsOnly.dhall sha256:56a5f88d34bb0aff570c8269a2a95d05cbd9113a13736440bff2bfd8a8959345
     ? ./addTagsToStepsOnly.dhall
 , addHooks =
       ./addHooks.dhall sha256:3b57b57d9dd32b2ee80942e77ec24814fe9babc850012148c79fb9e613d89966
