@@ -5,7 +5,7 @@
       ./defaults/package.dhall sha256:f4c452862b18fac1fbeac362d7300c5b67d96180be9fea6bd7af01ad575b508d
     ? ./defaults/package.dhall
 , schemas =
-      ./schemas/package.dhall sha256:1e6a6c263d58a0c76d4507054fa5458ee2b8dcd2936b037393e6410458e2d4e8
+      ./schemas/package.dhall sha256:b179184e3bbdeb70815b1da9f493ec1f6e3a71c6f1f82fea6fd5672cc37bfe32
     ? ./schemas/package.dhall
 , helpers =
       ./helpers/package.dhall sha256:8b7c43d24c0d1c1b7c0c7c933d066c878593e82047fb0663c6fa27a30e1e4766

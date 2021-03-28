@@ -1,1 +1,3 @@
-{ Type = ../types/StepHooks.dhall, default = ../defaults/StepHooks.dhall }
+{ Type = ../types/StepHooks.dhall ../types/Step.dhall
+, default = ../defaults/StepHooks.dhall ../types/Step.dhall
+}

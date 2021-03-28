@@ -14,7 +14,7 @@
       ./ImageResource.dhall sha256:5e78153fdd3275d91f80781a02c614c8ecfe79e347fe9ec00ad2148b1bf8175d
     ? ./ImageResource.dhall
 , StepHooks =
-      ./StepHooks.dhall sha256:a1bb15b4b98805ba74cef905565b64baa4ce8a42a99bb12f4811816158d35531
+      ./StepHooks.dhall sha256:47932ea35952e9242b119caad58e38743e36b118a3fd194d2582423759a566e9
     ? ./StepHooks.dhall
 , TaskStep =
       ./TaskStep.dhall sha256:ce87a8a6a3cc53fe58c050280e5dc6df23434cd2e12f87505175eeadc6b47881
