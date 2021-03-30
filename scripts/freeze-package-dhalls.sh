@@ -4,7 +4,8 @@ set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "$0")/.."; pwd -P)
 
-find "$ROOT_DIR/lib" -name '*.dhall' | xargs -n 1 dhall freeze --cache --all --inplace
+find "$ROOT_DIR/lib" -name '*.dhall' -print0 \
+    | xargs -0 -n 1 dhall freeze --cache --all --inplace
 
 # The order is important because they depend on each other.
 # A tree would be ideal, but it is bash ¯\_(ツ)_/¯
