@@ -107,6 +107,11 @@ let addTagsToStep
           , in_parallel = ./inParallelWithHooks.dhall
           }
 
+let addTagsToOptionalStep =
+      λ(addToResources : Bool) →
+      λ(tags : List Text) →
+        Prelude.Optional.map Step Step (addTagsToStep addToResources tags)
+
 let addTags
     : Bool → List Text → List Types.Job → List Types.Job
     = λ(addToResources : Bool) →
@@ -122,6 +127,13 @@ let addTags
                       Step
                       (addTagsToStep addToResources tags)
                       j.plan
+                , on_success =
+                    addTagsToOptionalStep addToResources tags j.on_success
+                , on_failure =
+                    addTagsToOptionalStep addToResources tags j.on_failure
+                , on_abort =
+                    addTagsToOptionalStep addToResources tags j.on_abort
+                , ensure = addTagsToOptionalStep addToResources tags j.ensure
                 }
           )
 
